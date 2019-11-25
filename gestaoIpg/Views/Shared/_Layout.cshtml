@@ -54,7 +54,11 @@
         </nav>
     </header>
 
-
+    <div class="slider">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
 
 
     <!--3-->
@@ -67,10 +71,10 @@
                     <p>In a elit in lorem congue varius. Sed nec arcu. Etiam sit amet augue. Fusce fermen tum neque a rutrum varius odio pede ullamcorp-er tellus ut dignissim nisi risus non tortor. Aliquam mollis neque.</p>
 
                     <ul class="social-network">
-                        <li><a href="https://www.facebook.com/politecnicodaguarda" data-placement="top" title="Facebook"><i class="fa fa-facebook fa-1x"></i></a></li>
-                        <li><a href="https://twitter.com/ipguarda" data-placement="top" title="Twitter"><i class="fa fa-twitter fa-1x"></i></a></li>
-                        <li><a href="https://www.instagram.com/ipolitecnicoguarda/" data-placement="top" title="Instagram"><i class="fa fa-instagram fa-1x"></i></a></li>
-                        <li><a href="https://www.youtube.com/politecnicodaguarda" data-placement="top" title="Youtube"><i class="fa fa-youtube fa-1x"></i></a></li>
+                        <li><a href="https://www.facebook.com/politecnicodaguarda" target="_blank" data-placement="top" title="Facebook"><i class="fa fa-facebook fa-1x"></i></a></li>
+                        <li><a href="https://twitter.com/ipguarda" target="_blank" data-placement="top" title="Twitter"><i class="fa fa-twitter fa-1x"></i></a></li>
+                        <li><a href="https://www.instagram.com/ipolitecnicoguarda/" target="_blank" data-placement="top" title="Instagram"><i class="fa fa-instagram fa-1x"></i></a></li>
+                        <li><a href="https://www.youtube.com/politecnicodaguarda" target="_blank" data-placement="top" title="Youtube"><i class="fa fa-youtube fa-1x"></i></a></li>
                         <!-- <li><a href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus fa-1x"></i></a></li> -->
                     </ul>
                 </div>
@@ -150,6 +154,7 @@
         wow = new WOW({}).init();
     </script>
     @RenderSection("Scripts", required: false)
+    
 
     <!--
     <header>
@@ -175,12 +180,6 @@
         </nav>
     </header>
     -->
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
     <!-- FOOTER E SCRIPTS DE JAVASCRIPT
 
     <footer class="border-top footer text-muted">
