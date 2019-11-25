@@ -8,7 +8,7 @@ namespace gestaoIpg.Models
 {
     public class Funcionarios
     {
-
+        [Required]
         public int FuncionarioId { get; set; }
 
         [Required]
@@ -24,6 +24,7 @@ namespace gestaoIpg.Models
         public String Email { get; set; }
 
         [Required]
+        
         public int Telemovel { get; set; }
 
 
