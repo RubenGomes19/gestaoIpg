@@ -9,11 +9,21 @@ namespace gestaoIpg.Models
     public class Funcionarios
     {
         
-        public int IdFuncionario { get; set;}
+        public int FuncionarioId { get; set;}
 
         [Required]
         [StringLength(256)]
-        public String NomeFuncionario { get; set; }
+        public String Nome { get; set; }
 
+        [Required]
+        [StringLength(500)]
+        public String Morada { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public String Email { get; set; }
+
+        [Required]
+        public int Telemovel { get; set; }
     }
 }
