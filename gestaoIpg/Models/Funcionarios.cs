@@ -8,15 +8,15 @@ namespace gestaoIpg.Models
 {
     public class Funcionarios
     {
-        
-        public int FuncionarioId { get; set;}
+
+        public int FuncionarioId { get; set; }
 
         [Required]
         [StringLength(256)]
         public String Nome { get; set; }
 
         [Required]
-        [StringLength(500)]
+        [StringLength(256)]
         public String Morada { get; set; }
 
         [Required]
@@ -25,5 +25,7 @@ namespace gestaoIpg.Models
 
         [Required]
         public int Telemovel { get; set; }
+
+
     }
 }
