@@ -8,8 +8,8 @@ namespace gestaoIpg.Models
 {
     public class Funcionarios
     {
-        [Required]
-        public int FuncionarioId { get; set; }
+        [Key]
+        public int FuncionarioID { get; set; }
 
         [Required]
         [StringLength(256)]
