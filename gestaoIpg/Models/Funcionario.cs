@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace gestaoIpg.Models
 {
-    public class Funcionarios
+    public class Funcionario
     {
-        [Key]
-        public int FuncionarioID { get; set; }
+
+        public int FuncionarioId { get; set; }
 
         [Required]
         [StringLength(256)]
@@ -24,9 +24,7 @@ namespace gestaoIpg.Models
         public String Email { get; set; }
 
         [Required]
-        
         public int Telemovel { get; set; }
-
-
     }
 }
+
