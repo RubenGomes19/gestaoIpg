@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace gestaoIpg.Models
 {
-    public class Funcionarios
+    public class Funcionario
     {
         
         public int FuncionarioId { get; set;}
