@@ -13,6 +13,6 @@ namespace gestaoIpg.Data
             : base(options)
         {
         }
-        public DbSet<gestaoIpg.Models.Funcionario> Funcionario { get; set; }
+        public DbSet<gestaoIpg.Models.Funcionarios> Funcionarios { get; set; }
     }
 }
