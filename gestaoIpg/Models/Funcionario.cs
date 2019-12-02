@@ -8,7 +8,7 @@ namespace gestaoIpg.Models
 {
     public class Funcionario
     {
-        
+ 
         public int FuncionarioId { get; set;}
 
         [Required]
