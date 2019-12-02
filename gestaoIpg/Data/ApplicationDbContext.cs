@@ -14,6 +14,5 @@ namespace gestaoIpg.Data
         {
         }
         public DbSet<gestaoIpg.Models.Funcionario> Funcionario { get; set; }
-       
     }
 }
