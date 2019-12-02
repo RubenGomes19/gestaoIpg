@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using gestaoIpg.Models;
 
 namespace gestaoIpg.Data
 {
@@ -12,5 +13,7 @@ namespace gestaoIpg.Data
             : base(options)
         {
         }
+        public DbSet<gestaoIpg.Models.Funcionario> Funcionario { get; set; }
+       
     }
 }

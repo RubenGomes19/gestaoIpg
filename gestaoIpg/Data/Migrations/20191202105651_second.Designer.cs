@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using gestaoIpg.Data;
 
-namespace gestaoIpg.Migrations
+namespace gestaoIpg.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191202103545_Second")]
-    partial class Second
+    [Migration("20191202105651_second")]
+    partial class second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -229,7 +229,6 @@ namespace gestaoIpg.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Morada")
