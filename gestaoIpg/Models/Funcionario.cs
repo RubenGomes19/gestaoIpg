@@ -24,5 +24,6 @@ namespace gestaoIpg.Models
 
         [Required]
         public int Telemovel { get; set; }
+
     }
 }
