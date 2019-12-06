@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="~/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
     <link href="~/css/prettyPhoto.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 
 
 
@@ -55,13 +55,23 @@
     </header>
 
     <div class="slider">
-        <main role="main" class="pb-3">
+        <div class="img-responsive">
+            <ul class="bxslider">
+                <li><img src="images/slider/1.jpg" alt="" /></li>
+                <li><img src="images/slider/2.jpg" alt="" /></li>
+                <li><img src="images/slider/3.jpg" alt="" /></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--e aqui que ficam as outras views-->
+    <div class="container">
+        <div class="text-center">
             @RenderBody()
-        </main>
+        </div>
     </div>
 
 
-    <!--3-->
 
     <footer>
         <div class="footer">
