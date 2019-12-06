@@ -150,14 +150,16 @@ a:hover {
 }
 
 .slider {
-	margin-top:-20px;
-	margin-right:0px;
-	margin-left:-40px;
+    margin-top: -20px;
+    margin-right: 0px;
+    margin-left: -40px;
+    
 }
 
-.slider img {
-    width: 100%;
-}
+    .slider img {
+        width: 100%;
+        background-color: #292929
+    }
 
 .box {
 	margin-top:70px;
@@ -1069,5 +1071,5 @@ a.scrollup{
 a.scrollup:hover{
 	opacity:1;
 	background-color:#ED502E;
-	color:#fff;;	
+	color:#fff;
 }
