@@ -42,7 +42,7 @@
                         <div class="menu">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation"><a asp-area="" asp-controller="Home" asp-action="Index" class="active">Home</a></li>
-                                <li role="presentation"><a asp-area="" asp-controller="Home" asp-action="Privacy">Departamentos</a></li>
+                                <li role="presentation"><a asp-area="" asp-controller="Departamento" asp-action="Index">Departamentos</a></li>
                                 <li role="presentation"><a asp-area="" asp-controller="Funcionario" asp-action="Index">Funcionários</a></li>
                                 <li role="presentation"><a href="contact.html">Contactos</a></li>
                             </ul>
@@ -53,21 +53,10 @@
         </nav>
     </header>
 
-    <div class="slider">
-        <div class="img-responsive">
-            <ul class="bxslider">
-                <li><img src="images/slider/1.jpg" alt="" /></li>
-                <li><img src="images/slider/2.jpg" alt="" /></li>
-                <li><img src="images/slider/3.jpg" alt="" /></li>
-            </ul>
-        </div>
-    </div>
-
+    
     <!--e aqui que ficam as outras views-->
     <div class="container">
-        <div class="text-center">
-            @RenderBody()
-        </div>
+        @RenderBody()
     </div>
 
 
@@ -94,7 +83,8 @@
                     <ul>
                         <li> WebSite IPG </li>
                         <hr>
-                        <li> Escola Superior de Educação, Comunicação e Desporto
+                        <li>
+                            Escola Superior de Educação, Comunicação e Desporto
                         </li>
                         <hr>
                         <li>Escola Superior de Tecnologia e Gestão </li>
