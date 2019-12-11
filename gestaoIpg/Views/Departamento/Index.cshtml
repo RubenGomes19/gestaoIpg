@@ -19,25 +19,30 @@
             <thead>
                 <tr>
                     <th>
-                        <h5>Tipo</h5>
+                        <h5>#</h5>
                         @*Html.DisplayNameFor(model => model.Tipo)*@
                     </th>
-                    <th></th>
+                    <th>
+                        <h5>Tipo</h5>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.Departamento)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Tipo)
-                        </td>
-                        <td>
-                            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.DepartamentoId">Editar</a> |
-                            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.DepartamentoId">Detalhes</a> |
-                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DepartamentoId">Eliminar</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartamentoId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.DepartamentoId">Editar</a> |
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.DepartamentoId">Detalhes</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DepartamentoId">Eliminar</a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -48,11 +53,11 @@
             {
                 <!--<a href="#">@i</a>-->
                 <!--<a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>-->
-                <a href="#" class="btn btn-success">@i</a>
+                <a href="#" class="btn btn-info">@i</a>
             }
             else
             {
-                <a asp-action="Index" asp-route-page="@i" class="btn btn-primary">@i</a>
+                <a asp-action="Index" asp-route-page="@i" class="btn btn-dark">@i</a>
 
             }
         }
