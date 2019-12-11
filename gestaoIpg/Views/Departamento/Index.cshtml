@@ -1,4 +1,6 @@
-﻿@model IEnumerable<gestaoIpg.Models.Departamento>
+﻿@*model IEnumerable<gestaoIpg.Models.Departamento> *@
+
+@model DepartamentoViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -6,23 +8,25 @@
 }
 
     <div class="container">
-        <h2>Novo Departamento</h2>
+        <h2>Lista Departamentos</h2>
 
         <p>
-            <a class="btn btn-success" asp-action="Create">Criar</a>
+            <a class="btn btn-success" asp-action="Create">Novo</a>
+         
         </p>
 
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Tipo)
+                        <h5>Tipo</h5>
+                        @*Html.DisplayNameFor(model => model.Tipo)*@
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Departamento)
                 {
                     <tr>
                         <td>
@@ -37,4 +41,20 @@
                 }
             </tbody>
         </table>
+
+        @for (int i = Model.FirstPageShow; i <= Model.LastPageShow; i++)
+        {
+            @if (i == Model.CurrentPage)
+            {
+                <!--<a href="#">@i</a>-->
+                <!--<a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>-->
+                <a href="#" class="btn btn-success">@i</a>
+            }
+            else
+            {
+                <a asp-action="Index" asp-route-page="@i" class="btn btn-primary">@i</a>
+
+            }
+        }
+
     </div>

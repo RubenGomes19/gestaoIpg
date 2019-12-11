@@ -19,7 +19,14 @@ namespace gestaoIpg.Models
             db.Departamento.AddRange(
                 new Departamento { Tipo = "Departamento informática" },
                 new Departamento { Tipo = "Departamento contabilidade" },
-                new Departamento { Tipo = "Departamento gestao" }
+                new Departamento { Tipo = "Departamento gestao" },
+                new Departamento { Tipo = "Departamento informática1" },
+                new Departamento { Tipo = "Departamento contabilidade1" },
+                new Departamento { Tipo = "Departamento gestao1" },
+                new Departamento { Tipo = "Departamento informática2" },
+                new Departamento { Tipo = "Departamento contabilidade2" },
+                new Departamento { Tipo = "Departamento gestao2" }
+
             );
             db.SaveChanges();
         }

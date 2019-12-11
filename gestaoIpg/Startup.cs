@@ -12,6 +12,7 @@ using gestaoIpg.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using gestaoIpg.Models;
 
 namespace gestaoIpg
 {
@@ -46,6 +47,7 @@ namespace gestaoIpg
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
             }
             else
             {
@@ -68,6 +70,17 @@ namespace gestaoIpg
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            if (env.IsDevelopment())
+            {
+               
+                using (var serviceScope = app.ApplicationServices.CreateScope())
+                {
+                    var db = serviceScope.ServiceProvider.GetService<gestaoIpgDbContext>();
+
+                    SeedData.Populate(db);
+                }
+            }
         }
     }
 }
