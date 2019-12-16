@@ -1,4 +1,6 @@
-﻿@model IEnumerable<gestaoIpg.Models.Funcionario>
+﻿@*model IEnumerable<gestaoIpg.Models.Funcionario>*@
+
+@model FuncionarioViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -10,28 +12,32 @@
         <h2>Index</h2>
 
         <p>
-            <a asp-action="Create" class="btn btn-success">Create New</a>
+            <a asp-action="Create" class="btn btn-success">Novo</a>
         </p>
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Nome)
+                        <h5>Nome</h5>
+                        @*Html.DisplayNameFor(model => model.Nome)*@
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Morada)
+                        <h5>Morada</h5>
+                        @*Html.DisplayNameFor(model => model.Morada)*@
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Email)
+                        <h5>Email</h5>
+                        @*Html.DisplayNameFor(model => model.Email)*@
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Telemovel)
+                        <h5>Telemóvel</h5>
+                        @*Html.DisplayNameFor(model => model.Telemovel)*@
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Funcionario)
                 {
                     <tr>
                         <td>
@@ -55,4 +61,18 @@
                 }
             </tbody>
         </table>
+        @for (int i = Model.FirstPageShow; i <= Model.LastPageShow; i++)
+        {
+            @if (i == Model.CurrentPage)
+            {
+                <!--<a href="#">@i</a>-->
+                <!--<a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>-->
+                <a href="#" class="btn btn-info">@i</a>
+            }
+            else
+            {
+                <a asp-action="Index" asp-route-page="@i" class="btn btn-dark">@i</a>
+
+            }
+        }
     </div>

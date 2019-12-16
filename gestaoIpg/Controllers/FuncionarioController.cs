@@ -13,15 +13,29 @@ namespace gestaoIpg.Controllers
     {
         private readonly gestaoIpgDbContext _context;
 
+        private const int NUMBER_OF_PRODUCTS_PER_PAGE = 3;
+        private const int NUMBER_OF_PAGES_BEFORE_AND_AFTER = 2;
+
         public FuncionarioController(gestaoIpgDbContext context)
         {
             _context = context;
         }
 
         // GET: Funcionarios
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page = 1)
         {
-            return View(await _context.Funcionario.ToListAsync());
+            decimal numberProducts = _context.Funcionario.Count();
+            FuncionarioViewModel vm = new FuncionarioViewModel
+            {
+                Funcionario = _context.Funcionario
+                .Skip((page - 1) * NUMBER_OF_PRODUCTS_PER_PAGE)
+                .Take(NUMBER_OF_PRODUCTS_PER_PAGE),
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(numberProducts / NUMBER_OF_PRODUCTS_PER_PAGE),
+                FirstPageShow = Math.Max(1, page - NUMBER_OF_PAGES_BEFORE_AND_AFTER),
+            };
+            vm.LastPageShow = Math.Min(vm.TotalPages, page + NUMBER_OF_PAGES_BEFORE_AND_AFTER);
+            return View(vm);
         }
 
         // GET: Funcionarios/Details/5
