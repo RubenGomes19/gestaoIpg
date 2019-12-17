@@ -18,20 +18,16 @@
             <thead>
                 <tr>
                     <th>
-                        <h5>Nome</h5>
-                        @*Html.DisplayNameFor(model => model.Nome)*@
+                        @Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Nome)
                     </th>
                     <th>
-                        <h5>Morada</h5>
-                        @*Html.DisplayNameFor(model => model.Morada)*@
+                        @Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Morada)
                     </th>
                     <th>
-                        <h5>Email</h5>
-                        @*Html.DisplayNameFor(model => model.Email)*@
+                        @Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Email)
                     </th>
                     <th>
-                        <h5>Telemóvel</h5>
-                        @*Html.DisplayNameFor(model => model.Telemovel)*@
+                        @Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Telemovel)
                     </th>
                     <th></th>
                 </tr>
