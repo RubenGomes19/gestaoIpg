@@ -11,6 +11,7 @@ namespace gestaoIpg.Models
         public int DepartamentoId { get; set; }
 
         [Required]
+        [StringLength(100)]
         public string Tipo { get; set; }
     }
 }
