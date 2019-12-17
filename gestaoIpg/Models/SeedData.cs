@@ -10,9 +10,8 @@ namespace gestaoIpg.Models
         public static void Populate(gestaoIpgDbContext db)
         {
             PopulateDepartamento(db);
-            PopulateTarefa(db);
-
-
+            PopulateFuncionario(db);
+           
         }
 
         private static void PopulateDepartamento(gestaoIpgDbContext db)
@@ -33,12 +32,23 @@ namespace gestaoIpg.Models
             db.SaveChanges();
         }
 
-        private static void PopulateTarefa(gestaoIpgDbContext db)
+        private static void PopulateFuncionario(gestaoIpgDbContext db)
         {
-            if (db.Tarefa.Any()) return;
-            db.Tarefa.AddRange(
-                new Tarefa { DescricaoTarefa = "Cortar Relva" },
-                new Tarefa { DescricaoTarefa = "Tirar fotografias Jornadas EI 2020" }
+            if (db.Funcionario.Any()) return;
+            db.Funcionario.AddRange(
+                new Funcionario { Nome = "Jorge Damásio", Morada = " Rua da Alegria, Guarda",
+                    Email = "jorgedamásio@gmail.com",
+                    Telemovel = 919191914
+                },
+                new Funcionario { Nome = "Daniela Matos", Morada = " Rua da Alegria, Guarda",
+                    Email = "danielamatos@gmail.com",
+                    Telemovel = 919191915
+                },
+                new Funcionario { Nome = "Olinda Simões", Morada = " Rua das Flores, Guarda",
+                    Email = "olindasimoes@gmail.com",
+                    Telemovel = 919191894
+                }
+
 
             );
             db.SaveChanges();

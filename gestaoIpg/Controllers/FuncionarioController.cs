@@ -9,25 +9,25 @@ using gestaoIpg.Models;
 
 namespace gestaoIpg.Controllers
 {
-    public class DepartamentoController : Controller
+    public class FuncionarioController : Controller
     {
         private readonly gestaoIpgDbContext _context;
 
         private const int NUMBER_OF_PRODUCTS_PER_PAGE = 3;
         private const int NUMBER_OF_PAGES_BEFORE_AND_AFTER = 2;
 
-        public DepartamentoController(gestaoIpgDbContext context)
+        public FuncionarioController(gestaoIpgDbContext context)
         {
             _context = context;
         }
 
-        // GET: Departamentos
+        // GET: Funcionarios
         public IActionResult Index(int page = 1)
         {
-            decimal numberProducts = _context.Departamento.Count();
-            DepartamentoViewModel vm = new DepartamentoViewModel
+            decimal numberProducts = _context.Funcionario.Count();
+            FuncionarioViewModel vm = new FuncionarioViewModel
             {
-                Departamento = _context.Departamento
+                Funcionario = _context.Funcionario
                 .Skip((page - 1) * NUMBER_OF_PRODUCTS_PER_PAGE)
                 .Take(NUMBER_OF_PRODUCTS_PER_PAGE),
                 CurrentPage = page,
@@ -38,7 +38,7 @@ namespace gestaoIpg.Controllers
             return View(vm);
         }
 
-        // GET: Departamentos/Details/5
+        // GET: Funcionarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,39 +46,39 @@ namespace gestaoIpg.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamento
-                .FirstOrDefaultAsync(m => m.DepartamentoId == id);
-            if (departamento == null)
+            var funcionario = await _context.Funcionario
+                .FirstOrDefaultAsync(m => m.FuncionarioId == id);
+            if (funcionario == null)
             {
                 return NotFound();
             }
 
-            return View(departamento);
+            return View(funcionario);
         }
 
-        // GET: Departamentos/Create
+        // GET: Funcionarios/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Departamentos/Create
+        // POST: Funcionarios/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DepartamentoId,Tipo")] Departamento departamento)
+        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Morada,Email,Telemovel")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(departamento);
+                _context.Add(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(departamento);
+            return View(funcionario);
         }
 
-        // GET: Departamentos/Edit/5
+        // GET: Funcionarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,22 +86,22 @@ namespace gestaoIpg.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamento.FindAsync(id);
-            if (departamento == null)
+            var funcionario = await _context.Funcionario.FindAsync(id);
+            if (funcionario == null)
             {
                 return NotFound();
             }
-            return View(departamento);
+            return View(funcionario);
         }
 
-        // POST: Departamentos/Edit/5
+        // POST: Funcionarios/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DepartamentoId,Tipo")] Departamento departamento)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Morada,Email,Telemovel")] Funcionario funcionario)
         {
-            if (id != departamento.DepartamentoId)
+            if (id != funcionario.FuncionarioId)
             {
                 return NotFound();
             }
@@ -110,12 +110,12 @@ namespace gestaoIpg.Controllers
             {
                 try
                 {
-                    _context.Update(departamento);
+                    _context.Update(funcionario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartamentoExists(departamento.DepartamentoId))
+                    if (!FuncionarioExists(funcionario.FuncionarioId))
                     {
                         return NotFound();
                     }
@@ -126,11 +126,10 @@ namespace gestaoIpg.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(departamento);
+            return View(funcionario);
         }
 
-
-        // GET: Departamentos/Delete/5
+        // GET: Funcionarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,30 +137,30 @@ namespace gestaoIpg.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamento
-                .FirstOrDefaultAsync(m => m.DepartamentoId == id);
-            if (departamento == null)
+            var funcionario = await _context.Funcionario
+                .FirstOrDefaultAsync(m => m.FuncionarioId == id);
+            if (funcionario == null)
             {
                 return NotFound();
             }
 
-            return View(departamento);
+            return View(funcionario);
         }
 
-        // POST: Departamentos/Delete/5
+        // POST: Funcionarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var departamento = await _context.Departamento.FindAsync(id);
-            _context.Departamento.Remove(departamento);
+            var funcionario = await _context.Funcionario.FindAsync(id);
+            _context.Funcionario.Remove(funcionario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DepartamentoExists(int id)
+        private bool FuncionarioExists(int id)
         {
-            return _context.Departamento.Any(e => e.DepartamentoId == id);
+            return _context.Funcionario.Any(e => e.FuncionarioId == id);
         }
     }
 }

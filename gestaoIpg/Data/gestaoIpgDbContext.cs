@@ -14,5 +14,5 @@ using gestaoIpg.Models;
 
         public DbSet<gestaoIpg.Models.Departamento> Departamento { get; set; }
 
-        public DbSet<gestaoIpg.Models.Tarefa> Tarefa { get; set; }
+        public DbSet<gestaoIpg.Models.Funcionario> Funcionario { get; set; }
     }
