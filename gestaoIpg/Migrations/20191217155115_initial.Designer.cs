@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace gestaoIpg.Migrations
 {
     [DbContext(typeof(gestaoIpgDbContext))]
-    [Migration("20191206025737_initial")]
+    [Migration("20191217155115_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,11 +28,41 @@ namespace gestaoIpg.Migrations
 
                     b.Property<string>("Tipo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.HasKey("DepartamentoId");
 
                     b.ToTable("Departamento");
+                });
+
+            modelBuilder.Entity("gestaoIpg.Models.Funcionario", b =>
+                {
+                    b.Property<int>("FuncionarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Morada")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<int>("Telemovel")
+                        .HasColumnType("int");
+
+                    b.HasKey("FuncionarioId");
+
+                    b.ToTable("Funcionario");
                 });
 #pragma warning restore 612, 618
         }
