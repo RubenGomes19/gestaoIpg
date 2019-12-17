@@ -13,7 +13,6 @@ namespace gestaoIpg.Models
             PopulateFuncionario(db);
            
         }
-
         private static void PopulateDepartamento(gestaoIpgDbContext db)
         {
             if (db.Departamento.Any()) return;
