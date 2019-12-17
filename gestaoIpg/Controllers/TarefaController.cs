@@ -9,36 +9,22 @@ using gestaoIpg.Models;
 
 namespace gestaoIpg.Controllers
 {
-    public class DepartamentoController : Controller
+    public class TarefaController : Controller
     {
         private readonly gestaoIpgDbContext _context;
 
-        private const int NUMBER_OF_PRODUCTS_PER_PAGE = 3;
-        private const int NUMBER_OF_PAGES_BEFORE_AND_AFTER = 2;
-
-        public DepartamentoController(gestaoIpgDbContext context)
+        public TarefaController(gestaoIpgDbContext context)
         {
             _context = context;
         }
 
-        // GET: Departamentos
-        public IActionResult Index(int page = 1)
+        // GET: Tarefa
+        public async Task<IActionResult> Index()
         {
-            decimal numberProducts = _context.Departamento.Count();
-            DepartamentoViewModel vm = new DepartamentoViewModel
-            {
-                Departamento = _context.Departamento
-                .Skip((page - 1) * NUMBER_OF_PRODUCTS_PER_PAGE)
-                .Take(NUMBER_OF_PRODUCTS_PER_PAGE),
-                CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(numberProducts / NUMBER_OF_PRODUCTS_PER_PAGE),
-                FirstPageShow = Math.Max(1, page - NUMBER_OF_PAGES_BEFORE_AND_AFTER),
-            };
-            vm.LastPageShow = Math.Min(vm.TotalPages, page + NUMBER_OF_PAGES_BEFORE_AND_AFTER);
-            return View(vm);
+            return View(await _context.Tarefa.ToListAsync());
         }
 
-        // GET: Departamentos/Details/5
+        // GET: Tarefa/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,39 +32,39 @@ namespace gestaoIpg.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamento
-                .FirstOrDefaultAsync(m => m.DepartamentoId == id);
-            if (departamento == null)
+            var tarefa = await _context.Tarefa
+                .FirstOrDefaultAsync(m => m.TarefaId == id);
+            if (tarefa == null)
             {
                 return NotFound();
             }
 
-            return View(departamento);
+            return View(tarefa);
         }
 
-        // GET: Departamentos/Create
+        // GET: Tarefa/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Departamentos/Create
+        // POST: Tarefa/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DepartamentoId,Tipo")] Departamento departamento)
+        public async Task<IActionResult> Create([Bind("TarefaId,DescricaoTarefa")] Tarefa tarefa)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(departamento);
+                _context.Add(tarefa);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(departamento);
+            return View(tarefa);
         }
 
-        // GET: Departamentos/Edit/5
+        // GET: Tarefa/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,22 +72,22 @@ namespace gestaoIpg.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamento.FindAsync(id);
-            if (departamento == null)
+            var tarefa = await _context.Tarefa.FindAsync(id);
+            if (tarefa == null)
             {
                 return NotFound();
             }
-            return View(departamento);
+            return View(tarefa);
         }
 
-        // POST: Departamentos/Edit/5
+        // POST: Tarefa/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DepartamentoId,Tipo")] Departamento departamento)
+        public async Task<IActionResult> Edit(int id, [Bind("TarefaId,DescricaoTarefa")] Tarefa tarefa)
         {
-            if (id != departamento.DepartamentoId)
+            if (id != tarefa.TarefaId)
             {
                 return NotFound();
             }
@@ -110,12 +96,12 @@ namespace gestaoIpg.Controllers
             {
                 try
                 {
-                    _context.Update(departamento);
+                    _context.Update(tarefa);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartamentoExists(departamento.DepartamentoId))
+                    if (!TarefaExists(tarefa.TarefaId))
                     {
                         return NotFound();
                     }
@@ -126,10 +112,10 @@ namespace gestaoIpg.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(departamento);
+            return View(tarefa);
         }
 
-        // GET: Departamentos/Delete/5
+        // GET: Tarefa/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,30 +123,30 @@ namespace gestaoIpg.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamento
-                .FirstOrDefaultAsync(m => m.DepartamentoId == id);
-            if (departamento == null)
+            var tarefa = await _context.Tarefa
+                .FirstOrDefaultAsync(m => m.TarefaId == id);
+            if (tarefa == null)
             {
                 return NotFound();
             }
 
-            return View(departamento);
+            return View(tarefa);
         }
 
-        // POST: Departamentos/Delete/5
+        // POST: Tarefa/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var departamento = await _context.Departamento.FindAsync(id);
-            _context.Departamento.Remove(departamento);
+            var tarefa = await _context.Tarefa.FindAsync(id);
+            _context.Tarefa.Remove(tarefa);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DepartamentoExists(int id)
+        private bool TarefaExists(int id)
         {
-            return _context.Departamento.Any(e => e.DepartamentoId == id);
+            return _context.Tarefa.Any(e => e.TarefaId == id);
         }
     }
 }
