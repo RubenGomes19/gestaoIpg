@@ -48,7 +48,6 @@ namespace gestaoIpg.Models
                     Telemovel = 919191894
                 }
 
-
             );
             db.SaveChanges();
         }
