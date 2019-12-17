@@ -129,6 +129,7 @@ namespace gestaoIpg.Controllers
             return View(departamento);
         }
 
+
         // GET: Departamentos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
