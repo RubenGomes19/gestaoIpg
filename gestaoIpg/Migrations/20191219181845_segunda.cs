@@ -7,6 +7,7 @@ namespace gestaoIpg.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+
                 name: "Cargo",
                 columns: table => new
                 {
