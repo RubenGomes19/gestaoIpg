@@ -14,5 +14,6 @@ namespace gestaoIpg.Models
         [StringLength(100)]
         public string NomeCargo { get; set; }
 
+
     }
 }
