@@ -5,32 +5,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+    <div class="container">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeCargo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeCargo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CargoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CargoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CargoId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <h2>Lista Cargo</h2>
+
+        <p>
+            <a asp-action="Create" class="btn btn-success">Criar novo cargo</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <h5>#</h5>
+                        @*Html.DisplayNameFor(model => model.NomeCargo)*@
+                    </th>
+                    <th>
+                        <h5>Nome de Cargo</h5>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CargoId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeCargo)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CargoId" class="btn btn-warning">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.CargoId" class="btn btn-info">Detalhes</a> |
+                        <a asp-action="Delete" asp-route-id="@item.CargoId" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+  </div>
