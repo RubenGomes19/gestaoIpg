@@ -11,6 +11,7 @@ namespace gestaoIpg.Models
         {
             PopulateDepartamento(db);
             PopulateFuncionario(db);
+            PopulateCargo(db);
            
         }
         private static void PopulateDepartamento(gestaoIpgDbContext db)
@@ -51,5 +52,21 @@ namespace gestaoIpg.Models
             );
             db.SaveChanges();
         }
+
+        private static void PopulateCargo(gestaoIpgDbContext db)
+        {
+            if (db.Cargo.Any()) return;
+            db.Cargo.AddRange(
+                new Cargo { NomeCargo = "Presidente" },
+                new Cargo { NomeCargo = "Vice-Presidente" },
+                new Cargo { NomeCargo = "Gerente" },
+                new Cargo { NomeCargo = "Analisador" },
+                new Cargo { NomeCargo = "Tecnico" },
+                new Cargo { NomeCargo = "Advogado" },
+                new Cargo { NomeCargo = "Contabilista" }
+            );
+            db.SaveChanges();
+        }
+
     }
 }
