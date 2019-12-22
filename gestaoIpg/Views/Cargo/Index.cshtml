@@ -1,4 +1,6 @@
-﻿@model IEnumerable<gestaoIpg.Models.Cargo>
+﻿@*model IEnumerable<gestaoIpg.Models.Cargo>*@
+
+@model CargoViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -25,23 +27,39 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Cargo)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CargoId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NomeCargo)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.CargoId" class="btn btn-warning">Editar</a> |
-                        <a asp-action="Details" asp-route-id="@item.CargoId" class="btn btn-info">Detalhes</a> |
-                        <a asp-action="Delete" asp-route-id="@item.CargoId" class="btn btn-danger">Eliminar</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CargoId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomeCargo)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.CargoId" class="btn btn-warning">Editar</a> |
+                            <a asp-action="Details" asp-route-id="@item.CargoId" class="btn btn-info">Detalhes</a> |
+                            <a asp-action="Delete" asp-route-id="@item.CargoId" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
 
-  </div>
+
+        @for (int i = Model.FirstPageShow; i <= Model.LastPageShow; i++)
+        {
+            @if (i == Model.CurrentPage)
+            {
+                <!--<a href="#">@i</a>-->
+                <!--<a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>-->
+                <a href="#" class="btn btn-info">@i</a>
+            }
+            else
+            {
+                <a asp-action="Index" asp-route-page="@i" class="btn btn-dark">@i</a>
+
+            }
+        }
+
+    </div>
