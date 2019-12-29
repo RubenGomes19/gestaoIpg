@@ -73,7 +73,8 @@ namespace gestaoIpg.Controllers
             {
                 _context.Add(departamento);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View("Sucesso");
+                //return RedirectToAction(nameof(Index));
             }
             return View(departamento);
         }
@@ -124,7 +125,8 @@ namespace gestaoIpg.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return View("Sucesso");
             }
             return View(departamento);
         }
@@ -155,7 +157,8 @@ namespace gestaoIpg.Controllers
             var departamento = await _context.Departamento.FindAsync(id);
             _context.Departamento.Remove(departamento);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
+            return View("Sucesso");
         }
 
         private bool DepartamentoExists(int id)
