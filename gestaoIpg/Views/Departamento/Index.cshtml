@@ -19,10 +19,6 @@
             <thead>
                 <tr>
                     <th>
-                        <h5>#</h5>
-                        @*Html.DisplayNameFor(model => model.Tipo)*@
-                    </th>
-                    <th>
                         <h5>Tipo</h5>
                     </th>
                 </tr>
@@ -31,9 +27,6 @@
                 @foreach (var item in Model.Departamento)
                 {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DepartamentoId)
-                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Tipo)
                     </td>
