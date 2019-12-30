@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191217155115_initial.cs" />
+    <Compile Remove="Migrations\20191217155115_initial.Designer.cs" />
+    <Compile Remove="Migrations\20191219172819_second.cs" />
+    <Compile Remove="Migrations\20191219172819_second.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
   </ItemGroup>
