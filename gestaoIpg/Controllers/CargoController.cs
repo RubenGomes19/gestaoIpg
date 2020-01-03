@@ -13,8 +13,8 @@ namespace gestaoIpg.Controllers
     {
         private readonly gestaoIpgDbContext _context;
 
-        private const int NUMBER_OF_PRODUCTS_PER_PAGE = 3;
-        private const int NUMBER_OF_PAGES_BEFORE_AND_AFTER = 2;
+        //private const int NUMBER_OF_PRODUCTS_PER_PAGE = 3;
+        //private const int NUMBER_OF_PAGES_BEFORE_AND_AFTER = 2;
 
         public CargoController(gestaoIpgDbContext context)
         {
@@ -22,7 +22,7 @@ namespace gestaoIpg.Controllers
         }
 
         // GET: Cargo
-        public IActionResult Index(int page = 1)
+        /*public IActionResult Index(int page = 1)
         {
             decimal numberProducts = _context.Cargo.Count();
             CargoViewModel vm = new CargoViewModel
@@ -36,12 +36,36 @@ namespace gestaoIpg.Controllers
             };
             vm.LastPageShow = Math.Min(vm.TotalPages, page + NUMBER_OF_PAGES_BEFORE_AND_AFTER);
             return View(vm);
-        }
-
-        /*public async Task<IActionResult> Index()
-        {
-            return View(await _context.Cargo.ToListAsync());
         }*/
+
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        {
+
+            ViewData["NameSortParm"] = String.IsNullOrEmpty (sortOrder) ? "name_desc" : "";
+            ViewData["CurrentFilter"] = searchString;
+
+            var cargo = from s in _context.Cargo
+                        select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                cargo = cargo.Where(s => s.NomeCargo.Contains(searchString));
+                
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    cargo = cargo.OrderByDescending(s => s.NomeCargo);    
+                    break;
+                default:
+                    cargo = cargo.OrderBy(s => s.NomeCargo);
+                    break;
+
+            }
+
+            return View(await cargo.AsNoTracking().ToListAsync());
+        }
 
         // GET: Cargo/Details/5
         public async Task<IActionResult> Details(int? id)
