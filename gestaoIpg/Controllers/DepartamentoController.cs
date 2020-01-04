@@ -22,7 +22,7 @@ namespace gestaoIpg.Controllers
         }
 
         // GET: Departamentos
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1, string sortOrder = null)
         {
             decimal numberProducts = _context.Departamento.Count();
             DepartamentoViewModel vm = new DepartamentoViewModel
@@ -35,7 +35,16 @@ namespace gestaoIpg.Controllers
                 FirstPageShow = Math.Max(1, page - NUMBER_OF_PAGES_BEFORE_AND_AFTER),
             };
             vm.LastPageShow = Math.Min(vm.TotalPages, page + NUMBER_OF_PAGES_BEFORE_AND_AFTER);
-            return View(vm);
+
+            switch (sortOrder)
+            {
+                case "Tipo":
+                    vm.Departamento = vm.Departamento.OrderBy(p => p.Tipo); // ascending by default
+                    vm.CurrentSortOrder = "Tipo";
+                    break;
+            }
+
+        return View(vm);
         }
 
         // GET: Departamentos/Details/5

@@ -19,7 +19,16 @@
             <thead>
                 <tr>
                     <th>
-                        <h5>Tipo</h5>
+
+                        @Html.DisplayNameFor(model => model.Departamento.FirstOrDefault().Tipo)
+
+                    </th>
+                    <th>
+                        @Html.ActionLink("Ordenar Tipo por: Ordem Alfabética", "Index", new
+                        {
+                            sortOrder = "Tipo",
+                            page = Model.CurrentPage,
+                    })
                     </th>
                 </tr>
             </thead>

@@ -12,6 +12,7 @@ namespace gestaoIpg.Models
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Tipo")]
         public string Tipo { get; set; }
     }
 }
