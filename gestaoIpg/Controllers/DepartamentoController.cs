@@ -22,7 +22,7 @@ namespace gestaoIpg.Controllers
         }
 
         // GET: Departamentos
-        public IActionResult Index(int page = 1, string sortOrder = null)
+        public IActionResult Index(int page = 1, string sortOrder = null, string searchString = null)
         {
             decimal numberProducts = _context.Departamento.Count();
             DepartamentoViewModel vm = new DepartamentoViewModel
@@ -36,6 +36,12 @@ namespace gestaoIpg.Controllers
             };
             vm.LastPageShow = Math.Min(vm.TotalPages, page + NUMBER_OF_PAGES_BEFORE_AND_AFTER);
 
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                 vm.Departamento = vm.Departamento.Where(p => p.Tipo.Contains(searchString, StringComparison.CurrentCultureIgnoreCase));
+                
+            }
+            
             switch (sortOrder)
             {
                 case "Tipo":
