@@ -38,10 +38,21 @@ namespace gestaoIpg.Controllers
             return View(vm);
         }*/
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
 
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty (sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             ViewData["CurrentFilter"] = searchString;
 
             var cargo = from s in _context.Cargo
@@ -64,7 +75,8 @@ namespace gestaoIpg.Controllers
 
             }
 
-            return View(await cargo.AsNoTracking().ToListAsync());
+            int pageSize = 3;
+            return View(await CargoViewModel<Cargo>.CreateAsync(cargo.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Cargo/Details/5
