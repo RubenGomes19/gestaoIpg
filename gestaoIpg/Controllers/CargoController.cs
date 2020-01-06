@@ -115,7 +115,8 @@ namespace gestaoIpg.Controllers
             {
                 _context.Add(cargo);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View("Sucesso");
+                //return RedirectToAction(nameof(Index));
             }
             return View(cargo);
         }
@@ -166,7 +167,8 @@ namespace gestaoIpg.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return View("Sucesso");
+                //return RedirectToAction(nameof(Index));
             }
             return View(cargo);
         }
@@ -197,7 +199,8 @@ namespace gestaoIpg.Controllers
             var cargo = await _context.Cargo.FindAsync(id);
             _context.Cargo.Remove(cargo);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("Sucesso");
+            //return RedirectToAction(nameof(Index));
         }
 
         private bool CargoExists(int id)
