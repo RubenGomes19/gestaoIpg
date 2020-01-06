@@ -28,18 +28,19 @@ namespace gestaoIpg.Controllers
             DepartamentoViewModel vm = new DepartamentoViewModel
             {
                 Departamento = _context.Departamento
-                .Skip((page - 1) * NUMBER_OF_PRODUCTS_PER_PAGE)
-                .Take(NUMBER_OF_PRODUCTS_PER_PAGE),
+                
+                .Take((int)numberProducts),
                 CurrentPage = page,
                 TotalPages = (int)Math.Ceiling(numberProducts / NUMBER_OF_PRODUCTS_PER_PAGE),
                 FirstPageShow = Math.Max(1, page - NUMBER_OF_PAGES_BEFORE_AND_AFTER),
             };
-            vm.LastPageShow = Math.Min(vm.TotalPages, page + NUMBER_OF_PAGES_BEFORE_AND_AFTER);
+            
+
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                 vm.Departamento = vm.Departamento.Where(p => p.Tipo.Contains(searchString, StringComparison.CurrentCultureIgnoreCase));
-                
+                vm.Departamento = vm.Departamento.Where(p => p.Tipo.Contains(searchString, StringComparison.CurrentCultureIgnoreCase));
+ 
             }
             
             switch (sortOrder)
@@ -48,9 +49,20 @@ namespace gestaoIpg.Controllers
                     vm.Departamento = vm.Departamento.OrderBy(p => p.Tipo); // ascending by default
                     vm.CurrentSortOrder = "Tipo";
                     break;
+                default:
+                    vm.Departamento = vm.Departamento.OrderByDescending(p => p.Tipo);
+                    vm.CurrentSortOrder = "Tipo";
+                    break;
             }
 
-        return View(vm);
+
+            vm.TotalPages = (int)Math.Ceiling((decimal)vm.Departamento.Count() / NUMBER_OF_PRODUCTS_PER_PAGE);
+            vm.Departamento = vm.Departamento.Skip((page - 1) * NUMBER_OF_PRODUCTS_PER_PAGE);
+            vm.Departamento = vm.Departamento.Take(NUMBER_OF_PRODUCTS_PER_PAGE);
+            vm.LastPageShow = Math.Min(vm.TotalPages, page + NUMBER_OF_PAGES_BEFORE_AND_AFTER);
+            vm.FirstPageShow = 1;
+            vm.LastPageShow = vm.TotalPages;
+            return View(vm);
         }
 
         // GET: Departamentos/Details/5
