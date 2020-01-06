@@ -12,6 +12,7 @@ namespace gestaoIpg.Models
         public int TotalPages { get; set; }
         public int FirstPageShow { get; set; }
         public int LastPageShow { get; set; }
-
+        public string CurrentSortOrder { get; set; }
+        public string CurrentSearchString { get; set; }
     }
 }

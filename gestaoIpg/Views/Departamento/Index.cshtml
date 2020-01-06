@@ -12,37 +12,59 @@
 
         <p>
             <a class="btn btn-success" asp-action="Create">Novo</a>
-         
+
         </p>
+
+        <!-- Topbar Search -->
+        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+
+                <div class="input-group-append">
+                    @Html.TextBox("searchString", null, null, new { @class = "form-control bg-light border-0 small", @style = "border-readius: .35rem", @placeholder = "Procurar tipo..." })
+                    <button type="submit" class="btn btn-outline-info">
+                        <i style="color:black" fas fa-sm">Pesquisar</i>
+                    </button>&nbsp;
+                    <a asp-action="Index" class="btn btn-outline-info">Voltar a lista inicial</a>
+                </div>
+            </div>
+        </form>
+
+
+
 
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        <h5>#</h5>
-                        @*Html.DisplayNameFor(model => model.Tipo)*@
+
+                        @Html.DisplayNameFor(model => model.Departamento.FirstOrDefault().Tipo)
+
                     </th>
-                    <th>
-                        <h5>Tipo</h5>
+                    <th style="color:black" class="btn btn-dark">
+                        @Html.ActionLink("Ordenar Tipo por: Ordem Alfabética", "Index", new
+                   {
+                       sortOrder = "Tipo",
+                       page = Model.CurrentPage,
+                       searchString = Model.CurrentSearchString
+                   })
+
                     </th>
+
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.Departamento)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DepartamentoId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tipo)
-                    </td>
-                    <td>
-                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.DepartamentoId">Editar</a> |
-                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.DepartamentoId">Detalhes</a> |
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DepartamentoId">Eliminar</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo)
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.DepartamentoId">Editar</a> |
+                            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.DepartamentoId">Detalhes</a> |
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DepartamentoId">Eliminar</a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
