@@ -1,6 +1,6 @@
-﻿@*model IEnumerable<gestaoIpg.Models.Funcionario>*@
+﻿@model FuncionarioViewModel<gestaoIpg.Models.Funcionario>
 
-@model FuncionarioViewModel
+@*model FuncionarioViewModel*@
 
 @{
     ViewData["Title"] = "Index";
@@ -14,26 +14,43 @@
         <p>
             <a asp-action="Create" class="btn btn-success">Novo</a>
         </p>
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                <p style="color:black">
+                    Procura por nome:&nbsp;  <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                    &nbsp;
+                    <input type="submit" value="Procurar" class="btn btn-outline-info" /> |
+                    <a asp-action="Index" class="btn btn-outline-info">Voltar a lista inicial</a>
+                </p>
+            </div>
+        </form>
+
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Nome)
+                        @*Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Nome)*@
+                        <h5>Nome</h5>
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Morada)
+                        @*Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Morada)*@
+                        <h5>Morada</h5>
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Email)
+                        @*Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Email)*@
+                        <h5>Email</h5>
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Telemovel)
+                        @*Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Telemovel)*@
+                        <h5>Telemóvel</h5>
                     </th>
-                    <th></th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" style=" color:black" class="btn btn-link">Ordenar por ordem alfabética</a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Funcionario)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td>
@@ -57,18 +74,35 @@
                 }
             </tbody>
         </table>
-        @for (int i = Model.FirstPageShow; i <= Model.LastPageShow; i++)
-        {
-            @if (i == Model.CurrentPage)
-            {
-                <!--<a href="#">@i</a>-->
-                <!--<a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>-->
-                <a href="#" class="btn btn-info">@i</a>
-            }
-            else
-            {
-                <a asp-action="Index" asp-route-page="@i" class="btn btn-dark">@i</a>
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
 
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @prevDisabled">
+            Anterior
+        </a>
+        &nbsp;
+        @for (int i = Model.PageIndex; i <= Model.TotalPages; i++)
+        {
+            @if (i == Model.PageIndex)
+            {
+
+                <label href="#">@i</label>
             }
         }
+        &nbsp;
+        &nbsp;
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @nextDisabled">
+            Seguinte
+        </a>
+
     </div>

@@ -13,8 +13,8 @@ namespace gestaoIpg.Controllers
     {
         private readonly gestaoIpgDbContext _context;
 
-        private const int NUMBER_OF_PRODUCTS_PER_PAGE = 3;
-        private const int NUMBER_OF_PAGES_BEFORE_AND_AFTER = 2;
+        //private const int NUMBER_OF_PRODUCTS_PER_PAGE = 3;
+        //private const int NUMBER_OF_PAGES_BEFORE_AND_AFTER = 2;
 
         public FuncionarioController(gestaoIpgDbContext context)
         {
@@ -22,6 +22,7 @@ namespace gestaoIpg.Controllers
         }
 
         // GET: Funcionarios
+        /*
         public IActionResult Index(int page = 1)
         {
             decimal numberProducts = _context.Funcionario.Count();
@@ -36,6 +37,48 @@ namespace gestaoIpg.Controllers
             };
             vm.LastPageShow = Math.Min(vm.TotalPages, page + NUMBER_OF_PAGES_BEFORE_AND_AFTER);
             return View(vm);
+        }
+        */
+
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        {
+
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var funcionario = from s in _context.Funcionario
+                        select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                funcionario = funcionario.Where(s => s.Nome.Contains(searchString));
+
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    funcionario = funcionario.OrderByDescending(s => s.Nome);
+                    break;
+                default:
+                    funcionario = funcionario.OrderBy(s => s.Nome);
+                    break;
+
+            }
+
+            int pageSize = 3;
+            return View(await FuncionarioViewModel<Funcionario>.CreateAsync(funcionario.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Funcionarios/Details/5
