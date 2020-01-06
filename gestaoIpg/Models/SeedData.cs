@@ -66,7 +66,8 @@ namespace gestaoIpg.Models
                 new Cargo { NomeCargo = "Contabilista" },
                 new Cargo { NomeCargo = "Limpeza" },
                 new Cargo { NomeCargo = "Financeira" },
-                new Cargo { NomeCargo = "Trabalhador" }
+                new Cargo { NomeCargo = "Trabalhador1" },
+                new Cargo { NomeCargo = "Trabalhador2" }
             );
             db.SaveChanges();
         }

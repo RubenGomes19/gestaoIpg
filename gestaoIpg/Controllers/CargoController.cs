@@ -13,8 +13,8 @@ namespace gestaoIpg.Controllers
     {
         private readonly gestaoIpgDbContext _context;
 
-        //private const int NUMBER_OF_PRODUCTS_PER_PAGE = 3;
-        //private const int NUMBER_OF_PAGES_BEFORE_AND_AFTER = 2;
+        private const int NUMBER_OF_PRODUCTS_PER_PAGE = 3;
+        private const int NUMBER_OF_PAGES_BEFORE_AND_AFTER = 2;
 
         public CargoController(gestaoIpgDbContext context)
         {
