@@ -30,11 +30,13 @@
             <thead>
                 <tr>
                     @*<th>
-                        @Html.DisplayNameFor(model => model.NomeCargo)
-                    </th>*@
+            @Html.DisplayNameFor(model => model.NomeCargo)
+        </th>*@
                     <th>
-                        @*@<h5>Nome de Cargo</h5>*@
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" style=" color:black">Nome de Cargo</a>
+                        <h5>Nome de Cargo</h5>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" style=" color:black" class="btn btn-link">Ordenar por ordem alfabetico</a>
                     </th>
                 </tr>
             </thead>
@@ -75,9 +77,8 @@
         {
             @if (i == Model.PageIndex)
             {
-                <!--<a href="#">@i</a>-->
-                <!--<a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>-->
-                <a href="#" class="btn btn-info">@i</a>
+
+                <label href="#" >@i</label>
             }
         }
         &nbsp;
