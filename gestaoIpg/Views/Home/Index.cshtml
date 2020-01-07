@@ -2,17 +2,29 @@
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="slider">
-        <div class="img-responsive">
-            <ul class="bxslider">
-                <li><img src="~/images/slider/img3.jpg" alt="" /></li>
-                <li><img src="~/images/slider/img2.jpg" alt="" /></li>
-                <li><img src="~/images/slider/img1.jpg" alt="" /></li>
+    <div class="text-center">
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-area="" asp-controller="Departamento" asp-action="Index">Departamentos</a>
+            <a asp-area="" asp-controller="Funcionario" asp-action="Index">Funcionários</a>
+            <a asp-area="" asp-controller="Cargo" asp-action="Index">Cargos</a>
+            }
+        else
+        {
+            <div class="slider">
+                <div class="img-responsive">
+                    <ul class="bxslider">
+                        <li><img src="~/images/slider/img3.jpg" alt="" /></li>
+                        <li><img src="~/images/slider/img2.jpg" alt="" /></li>
+                        <li><img src="~/images/slider/img1.jpg" alt="" /></li>
 
 
-            </ul>
-        </div>
+                    </ul>
+                </div>
+            </div>
+        }
     </div>
+    
 
 
 

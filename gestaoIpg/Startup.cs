@@ -31,8 +31,47 @@ namespace gestaoIpg
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            /*services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();*/
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI();
+
+            services.Configure<IdentityOptions>(
+                options => {
+                    // Password settings
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireLowercase = true;
+
+                    // Lockout
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                    options.Lockout.MaxFailedAccessAttempts = 5;
+                    options.Lockout.AllowedForNewUsers = true;
+
+                    // Users
+                    options.User.RequireUniqueEmail = true;
+
+                    // Sign in
+                    options.SignIn.RequireConfirmedAccount = false;
+                }
+            );
+
+            services.AddAuthorization(
+                options => {
+                    options.AddPolicy(
+                        "CanManageGestaoIpg",
+                        policy => policy.RequireRole("presidente", "admin", "funcionario")
+                    );
+
+                    // other policies ...
+                }
+            );
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -41,7 +80,8 @@ namespace gestaoIpg
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -71,6 +111,8 @@ namespace gestaoIpg
                 endpoints.MapRazorPages();
             });
 
+            SeedData.CreateRolesAsync(roleManager).Wait();
+
             if (env.IsDevelopment())
             {
                
@@ -79,6 +121,7 @@ namespace gestaoIpg
                     var db = serviceScope.ServiceProvider.GetService<gestaoIpgDbContext>();
 
                     SeedData.Populate(db);
+                    SeedData.PopulateUsersAsync(userManager).Wait();
                 }
             }
         }
