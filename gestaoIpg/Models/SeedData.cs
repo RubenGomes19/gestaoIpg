@@ -129,7 +129,7 @@ namespace gestaoIpg.Models
                     Email = "test@ipg.pt"
                 };
 
-                await userManager.CreateAsync(user, ADMIN_PASSWORD);
+                await userManager.CreateAsync(user,ADMIN_PASSWORD);
             }
 
             // Create other user accounts ...

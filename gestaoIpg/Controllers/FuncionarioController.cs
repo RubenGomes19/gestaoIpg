@@ -116,7 +116,8 @@ namespace gestaoIpg.Controllers
             {
                 _context.Add(funcionario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View("Sucesso");
+                //return RedirectToAction(nameof(Index));
             }
             return View(funcionario);
         }
@@ -167,7 +168,8 @@ namespace gestaoIpg.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return View("Sucesso");
             }
             return View(funcionario);
         }
@@ -198,7 +200,8 @@ namespace gestaoIpg.Controllers
             var funcionario = await _context.Funcionario.FindAsync(id);
             _context.Funcionario.Remove(funcionario);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
+            return View("Sucesso");
         }
 
         private bool FuncionarioExists(int id)
