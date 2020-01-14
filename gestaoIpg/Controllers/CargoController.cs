@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gestaoIpg.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace gestaoIpg.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class CargoController : Controller
     {
         private readonly gestaoIpgDbContext _context;
@@ -80,6 +82,7 @@ namespace gestaoIpg.Controllers
             return View(await CargoViewModel<Cargo>.CreateAsync(cargo.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
+
         // GET: Cargo/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -98,6 +101,7 @@ namespace gestaoIpg.Controllers
             return View(cargo);
         }
 
+        
         // GET: Cargo/Create
         public IActionResult Create()
         {

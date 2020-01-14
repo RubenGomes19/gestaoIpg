@@ -86,6 +86,9 @@ namespace gestaoIpg.Models
             const string MANAGER_USERNAME = "jose@ipg.pt";
             const string MANAGER_PASSWORD = "Secret123$";
 
+            const string FUNCIONARIO_USERNAME = "andre@ipg.pt";
+            const string FUNCIONARIO_PASSWORD = "Secret123$";
+
             IdentityUser user = await userManager.FindByNameAsync(ADMIN_USERNAME);
             if (user == null)
             {
@@ -120,17 +123,24 @@ namespace gestaoIpg.Models
                 await userManager.AddToRoleAsync(user, MANAGER_ROLE);
             }
 
-            user = await userManager.FindByNameAsync("test@ipg.pt");
+            user = await userManager.FindByNameAsync(FUNCIONARIO_USERNAME);
             if (user == null)
             {
                 user = new IdentityUser
                 {
-                    UserName = "test@ipg.pt",
-                    Email = "test@ipg.pt"
+                    UserName = FUNCIONARIO_USERNAME,
+                    Email = FUNCIONARIO_USERNAME
                 };
 
-                await userManager.CreateAsync(user,ADMIN_PASSWORD);
+                await userManager.CreateAsync(user, FUNCIONARIO_PASSWORD);
             }
+
+            if (!await userManager.IsInRoleAsync(user, FUNCIONARIO_ROLE))
+            {
+                await userManager.AddToRoleAsync(user, FUNCIONARIO_ROLE);
+            }
+
+
 
             // Create other user accounts ...
         }
@@ -151,7 +161,7 @@ namespace gestaoIpg.Models
 
             if (!await roleManager.RoleExistsAsync(FUNCIONARIO_ROLE))
             {
-                await roleManager.CreateAsync(new IdentityRole(MANAGER_ROLE));
+                await roleManager.CreateAsync(new IdentityRole(FUNCIONARIO_ROLE));
             }
         }
 

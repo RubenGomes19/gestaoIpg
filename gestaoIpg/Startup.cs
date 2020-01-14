@@ -65,7 +65,7 @@ namespace gestaoIpg
                 options => {
                     options.AddPolicy(
                         "CanManageGestaoIpg",
-                        policy => policy.RequireRole("presidente", "admin", "funcionario")
+                        policy => policy.RequireRole("manager", "admin", "funcionario")
                     );
 
                     // other policies ...
@@ -79,8 +79,8 @@ namespace gestaoIpg
                     options.UseSqlServer(Configuration.GetConnectionString("gestaoIpgDbContext")));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager,
+            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
