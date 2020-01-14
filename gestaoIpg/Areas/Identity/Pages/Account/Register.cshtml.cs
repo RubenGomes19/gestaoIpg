@@ -16,7 +16,8 @@ using Microsoft.Extensions.Logging;
 
 namespace gestaoIpg.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
+    [Authorize(Roles = "admin")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
