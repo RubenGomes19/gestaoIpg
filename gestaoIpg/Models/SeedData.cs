@@ -112,6 +112,7 @@ namespace gestaoIpg.Models
                     Email = MANAGER_USERNAME
                 };
 
+
                 await userManager.CreateAsync(user, MANAGER_PASSWORD);
             }
 
