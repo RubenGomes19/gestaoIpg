@@ -76,6 +76,7 @@ namespace gestaoIpg.Models
                 new Cargo { NomeCargo = "Trabalhador2" }
             );
             db.SaveChanges();
+
         }
 
         public static async Task PopulateUsersAsync(UserManager<IdentityUser> userManager)
