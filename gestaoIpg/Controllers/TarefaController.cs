@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using gestaoIpg.Models;
 
 namespace gestaoIpg.Controllers
-{/*
+{
     public class TarefaController : Controller
     {
         private readonly gestaoIpgDbContext _context;
@@ -148,5 +148,5 @@ namespace gestaoIpg.Controllers
         {
             return _context.Tarefa.Any(e => e.TarefaId == id);
         }
-    }*/
+    }
 }
