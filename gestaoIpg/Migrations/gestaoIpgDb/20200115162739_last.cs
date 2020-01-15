@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace gestaoIpg.Migrations
+namespace gestaoIpg.Migrations.gestaoIpgDb
 {
-    public partial class segunda : Migration
+    public partial class last : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-
                 name: "Cargo",
                 columns: table => new
                 {
@@ -48,6 +47,19 @@ namespace gestaoIpg.Migrations
                 {
                     table.PrimaryKey("PK_Funcionario", x => x.FuncionarioId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Tarefa",
+                columns: table => new
+                {
+                    TarefaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DescricaoTarefa = table.Column<string>(maxLength: 500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tarefa", x => x.TarefaId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -60,6 +72,9 @@ namespace gestaoIpg.Migrations
 
             migrationBuilder.DropTable(
                 name: "Funcionario");
+
+            migrationBuilder.DropTable(
+                name: "Tarefa");
         }
     }
 }

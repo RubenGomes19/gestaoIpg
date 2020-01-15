@@ -18,6 +18,7 @@ namespace gestaoIpg.Models
             PopulateDepartamento(db);
             PopulateFuncionario(db);
             PopulateCargo(db);
+            PopulateTarefa(db);
            
         }
         private static void PopulateDepartamento(gestaoIpgDbContext db)
@@ -76,8 +77,20 @@ namespace gestaoIpg.Models
                 new Cargo { NomeCargo = "Trabalhador2" }
             );
             db.SaveChanges();
-
         }
+
+            private static void PopulateTarefa(gestaoIpgDbContext db)
+            {
+                if (db.Tarefa.Any()) return;
+                db.Tarefa.AddRange(
+                    new Tarefa { DescricaoTarefa = "Cortar relva" },
+                    new Tarefa { DescricaoTarefa = "Vigiar teste Programação" },
+                    new Tarefa { DescricaoTarefa = "Limpar Escadas" }
+                    
+                );
+                db.SaveChanges();
+
+            }
 
         public static async Task PopulateUsersAsync(UserManager<IdentityUser> userManager)
         {

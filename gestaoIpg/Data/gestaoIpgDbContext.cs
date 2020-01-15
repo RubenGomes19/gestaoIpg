@@ -17,4 +17,6 @@ using gestaoIpg.Models;
         public DbSet<gestaoIpg.Models.Funcionario> Funcionario { get; set; }
 
         public DbSet<gestaoIpg.Models.Cargo> Cargo { get; set; }
+
+        public DbSet<gestaoIpg.Models.Tarefa> Tarefa { get; set; }
     }
