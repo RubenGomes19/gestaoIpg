@@ -46,6 +46,7 @@ namespace gestaoIpg.Models
                 new Funcionario { Nome = "Jorge Damásio", Morada = " Rua da Alegria, Guarda",
                     Email = "jorgedamásio@gmail.com",
                     Telemovel = 919191914
+
                 },
                 new Funcionario { Nome = "Daniela Matos", Morada = " Rua da Alegria, Guarda",
                     Email = "danielamatos@gmail.com",
