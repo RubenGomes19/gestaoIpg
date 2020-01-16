@@ -46,6 +46,9 @@
                         <h5>Telemóvel</h5>
                     </th>
                     <th>
+                        <h5>Cargo</h5>
+                    </th>
+                    <th>
                         <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" style=" color:black" class="btn btn-link">Ordenar por ordem alfabética</a>
                     </th>
                 </tr>
@@ -53,25 +56,28 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Morada)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Telemovel)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.FuncionarioId" class="btn btn-warning">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.FuncionarioId" class="btn btn-info">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.FuncionarioId" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Morada)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telemovel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cargo.NomeCargo)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.FuncionarioId" class="btn btn-warning">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.FuncionarioId" class="btn btn-info">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.FuncionarioId" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

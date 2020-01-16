@@ -39,28 +39,6 @@ namespace gestaoIpg.Models
             db.SaveChanges();
         }
 
-        private static void PopulateFuncionario(gestaoIpgDbContext db)
-        {
-            if (db.Funcionario.Any()) return;
-            db.Funcionario.AddRange(
-                new Funcionario { Nome = "Jorge Damásio", Morada = " Rua da Alegria, Guarda",
-                    Email = "jorgedamásio@gmail.com",
-                    Telemovel = 919191914
-
-                },
-                new Funcionario { Nome = "Daniela Matos", Morada = " Rua da Alegria, Guarda",
-                    Email = "danielamatos@gmail.com",
-                    Telemovel = 919191915
-                },
-                new Funcionario { Nome = "Olinda Simões", Morada = " Rua das Flores, Guarda",
-                    Email = "olindasimoes@gmail.com",
-                    Telemovel = 919191894
-                }
-
-            );
-            db.SaveChanges();
-        }
-
         private static void PopulateCargo(gestaoIpgDbContext db)
         {
             if (db.Cargo.Any()) return;
@@ -79,6 +57,33 @@ namespace gestaoIpg.Models
             );
             db.SaveChanges();
         }
+
+        private static void PopulateFuncionario(gestaoIpgDbContext db)
+        {
+            if (db.Funcionario.Any()) return;
+            db.Funcionario.AddRange(
+                new Funcionario { Nome = "Jorge Damásio", Morada = " Rua da Alegria, Guarda",
+                    Email = "jorgedamásio@gmail.com",
+                    Telemovel = 919191914,
+                    CargoId =4
+                  
+                },
+                new Funcionario { Nome = "Daniela Matos", Morada = " Rua da Alegria, Guarda",
+                    Email = "danielamatos@gmail.com",
+                    Telemovel = 919191915,
+                    CargoId = 4
+                },
+                new Funcionario { Nome = "Olinda Simões", Morada = " Rua das Flores, Guarda",
+                    Email = "olindasimoes@gmail.com",
+                    Telemovel = 919191894,
+                    CargoId = 4
+                }
+
+            );
+            db.SaveChanges();
+        }
+
+        
 
             private static void PopulateTarefa(gestaoIpgDbContext db)
             {

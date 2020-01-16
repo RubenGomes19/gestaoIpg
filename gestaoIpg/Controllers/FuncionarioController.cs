@@ -78,7 +78,10 @@ namespace gestaoIpg.Controllers
             }
 
             int pageSize = 3;
+            var gestaoIpgDbContext = _context.Funcionario.Include(f => f.Cargo);
             return View(await FuncionarioViewModel<Funcionario>.CreateAsync(funcionario.AsNoTracking(), pageNumber ?? 1, pageSize));
+            //return View(await gestaoIpgDbContext.ToListAsync());
+
         }
 
         // GET: Funcionarios/Details/5
@@ -90,6 +93,7 @@ namespace gestaoIpg.Controllers
             }
 
             var funcionario = await _context.Funcionario
+                .Include(f => f.Cargo)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
@@ -102,6 +106,7 @@ namespace gestaoIpg.Controllers
         // GET: Funcionarios/Create
         public IActionResult Create()
         {
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
             return View();
         }
 
@@ -110,7 +115,7 @@ namespace gestaoIpg.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Morada,Email,Telemovel")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Morada,Email,Telemovel, CargoId")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -119,6 +124,7 @@ namespace gestaoIpg.Controllers
                 return View("Sucesso");
                 //return RedirectToAction(nameof(Index));
             }
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
             return View(funcionario);
         }
 
@@ -135,6 +141,7 @@ namespace gestaoIpg.Controllers
             {
                 return NotFound();
             }
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
             return View(funcionario);
         }
 
@@ -143,7 +150,7 @@ namespace gestaoIpg.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Morada,Email,Telemovel")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Morada,Email,Telemovel,CargoId")] Funcionario funcionario)
         {
             if (id != funcionario.FuncionarioId)
             {
@@ -171,6 +178,7 @@ namespace gestaoIpg.Controllers
                 //return RedirectToAction(nameof(Index));
                 return View("Sucesso");
             }
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
             return View(funcionario);
         }
 
@@ -183,6 +191,7 @@ namespace gestaoIpg.Controllers
             }
 
             var funcionario = await _context.Funcionario
+                .Include(f => f.Cargo)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {

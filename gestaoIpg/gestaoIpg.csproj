@@ -10,6 +10,14 @@
     <Compile Remove="Migrations\20191217155115_initial.Designer.cs" />
     <Compile Remove="Migrations\20191219172819_second.cs" />
     <Compile Remove="Migrations\20191219172819_second.Designer.cs" />
+    <Compile Remove="Migrations\gestaoIpgDb\20200115234421_chavefk.cs" />
+    <Compile Remove="Migrations\gestaoIpgDb\20200115234421_chavefk.Designer.cs" />
+    <Compile Remove="Migrations\gestaoIpgDb\20200115234807_fk.cs" />
+    <Compile Remove="Migrations\gestaoIpgDb\20200115234807_fk.Designer.cs" />
+    <Compile Remove="Migrations\gestaoIpgDb\20200116004157_cfk.cs" />
+    <Compile Remove="Migrations\gestaoIpgDb\20200116004157_cfk.Designer.cs" />
+    <Compile Remove="Migrations\gestaoIpgDb\20200116012143_fk.cs" />
+    <Compile Remove="Migrations\gestaoIpgDb\20200116012143_fk.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
