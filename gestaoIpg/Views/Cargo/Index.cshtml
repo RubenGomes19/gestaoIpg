@@ -1,101 +1,102 @@
 ﻿@model CargoViewModel<gestaoIpg.Models.Cargo>
+    
 
-@*model CargoViewModel*@
-
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-
-    <div class="container">
-
-        <h2>Lista Cargo</h2>
-
-        <p>
-            <a asp-action="Create" class="btn btn-success">Criar novo cargo</a>
-        </p>
-
-        <form asp-action="Index" method="get">
-            <div class="form-actions no-color">
-                <p style="color:black">
-                    Procura por nome:&nbsp;  <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-                    &nbsp;
-                    <input type="submit" value="Procurar" class="btn btn-outline-info" /> |
-                    <a asp-action="Index" class="btn btn-outline-info">Voltar a lista inicial</a>
-                </p>
-            </div>
-        </form>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    @*<th>
-            @Html.DisplayNameFor(model => model.NomeCargo)
-        </th>*@
-                    <th>
-                        <h5>Nome de Cargo</h5>
-                    </th>
-                    <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" style=" color:black" class="btn btn-link">Ordenar por ordem Alfabetica</a>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        @*<td>
-                            @Html.DisplayFor(modelItem => item.CargoId)
-                        </td>*@
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NomeCargo)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.CargoId" class="btn btn-warning">Editar</a> |
-                            <a asp-action="Details" asp-route-id="@item.CargoId" class="btn btn-info">Detalhes</a> |
-                            <a asp-action="Delete" asp-route-id="@item.CargoId" class="btn btn-danger">Eliminar</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    @*model CargoViewModel*@
 
         @{
-            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            ViewData["Title"] = "Index";
+            Layout = "~/Views/Shared/_Layout.cshtml";
         }
 
-        <a asp-action="Index"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
-           asp-route-pageNumber="@(Model.PageIndex - 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           class="btn btn-default @prevDisabled">
-            Anterior
-        </a>
-        &nbsp;
-        @for (int i = Model.PageIndex; i <= Model.TotalPages; i++)
+
+            <div class="container">
+
+                <h2>Lista Cargo</h2>
+
+                <p>
+                    <a asp-action="Create" class="btn btn-success">Criar novo cargo</a>
+                </p>
+
+                <form asp-action="Index" method="get">
+                    <div class="form-actions no-color">
+                        <p style="color:black">
+                            Procura por nome:&nbsp;  <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                            &nbsp;
+                            <input type="submit" value="Procurar" class="btn btn-outline-info" /> |
+                            <a asp-action="Index" class="btn btn-outline-info">Voltar a lista inicial</a>
+                        </p>
+                    </div>
+                </form>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @*<th>
+                    @Html.DisplayNameFor(model => model.NomeCargo)
+                </th>*@
+    <th>
+        <h5>Nome de Cargo</h5>
+    </th>
+    <th>
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" style=" color:black" class="btn btn-link">Ordenar por ordem Alfabetica</a>
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
         {
-            @if (i == Model.PageIndex)
-            {
-
-                <label href="#" >@i</label>
-            }
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.CargoId)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeCargo)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CargoId" class="btn btn-warning">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.CargoId" class="btn btn-info">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CargoId" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
         }
-        &nbsp;
-        &nbsp;
-        <a asp-action="Index"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
-           asp-route-pageNumber="@(Model.PageIndex + 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           class="btn btn-default @nextDisabled">
-            Seguinte
-        </a>
+    </tbody>
+    </table>
+
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @prevDisabled">
+        Anterior
+    </a>
+    &nbsp;
+    @for (int i = Model.PageIndex; i <= Model.TotalPages; i++)
+    {
+        @if (i == Model.PageIndex)
+        {
+
+            <label href="#">@i</label>
+        }
+    }
+    &nbsp;
+    &nbsp;
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @nextDisabled">
+        Seguinte
+    </a>
 
 
 
 
-        @*@for (int i = Model.FirstPageShow; i <= Model.LastPageShow; i++)
+    @*@for (int i = Model.FirstPageShow; i <= Model.LastPageShow; i++)
         {
             @if (i == Model.CurrentPage)
             {
@@ -108,6 +109,6 @@
                 <a asp-action="Index" asp-route-page="@i" class="btn btn-dark">@i</a>
 
             }*@
-        }
+    }
 
     </div>

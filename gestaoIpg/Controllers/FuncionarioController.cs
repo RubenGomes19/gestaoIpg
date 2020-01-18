@@ -77,10 +77,10 @@ namespace gestaoIpg.Controllers
 
             }
 
-            int pageSize = 3;
+            //int pageSize = 3;
             var gestaoIpgDbContext = _context.Funcionario.Include(f => f.Cargo);
-            return View(await FuncionarioViewModel<Funcionario>.CreateAsync(funcionario.AsNoTracking(), pageNumber ?? 1, pageSize));
-            //return View(await gestaoIpgDbContext.ToListAsync());
+            //return View(await FuncionarioViewModel<Funcionario>.CreateAsync(funcionario.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(gestaoIpgDbContext.ToListAsync());
 
         }
 

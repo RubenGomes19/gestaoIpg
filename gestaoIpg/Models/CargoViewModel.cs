@@ -44,7 +44,7 @@ namespace gestaoIpg.Models
         }
 
 
-        /* public IEnumerable <Cargo> Cargo { get; set; }
+       /* public IEnumerable <Cargo> Cargo { get; set; }
          public int CurrentPage { get; set; }
          public int TotalPages { get; set; }
          public int FirstPageShow { get; set; }

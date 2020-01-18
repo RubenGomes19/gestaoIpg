@@ -16,8 +16,8 @@ namespace gestaoIpg.Models
         public static void Populate(gestaoIpgDbContext db)
         {
             PopulateDepartamento(db);
-            PopulateFuncionario(db);
             PopulateCargo(db);
+            PopulateFuncionario(db);
             PopulateTarefa(db);
            
         }
@@ -65,18 +65,18 @@ namespace gestaoIpg.Models
                 new Funcionario { Nome = "Jorge Damásio", Morada = " Rua da Alegria, Guarda",
                     Email = "jorgedamásio@gmail.com",
                     Telemovel = 919191914,
-                    CargoId =4
+                    CargoId =1
                   
                 },
                 new Funcionario { Nome = "Daniela Matos", Morada = " Rua da Alegria, Guarda",
                     Email = "danielamatos@gmail.com",
                     Telemovel = 919191915,
-                    CargoId = 4
+                    CargoId = 1
                 },
                 new Funcionario { Nome = "Olinda Simões", Morada = " Rua das Flores, Guarda",
                     Email = "olindasimoes@gmail.com",
                     Telemovel = 919191894,
-                    CargoId = 4
+                    CargoId = 1
                 }
 
             );

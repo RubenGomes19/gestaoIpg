@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gestaoIpg.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace gestaoIpg.Controllers
 {
@@ -43,6 +44,7 @@ namespace gestaoIpg.Controllers
         }
 
         // GET: Tarefa/Create
+        
         public IActionResult Create()
         {
             return View();

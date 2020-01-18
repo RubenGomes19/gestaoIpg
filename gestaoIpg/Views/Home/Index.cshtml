@@ -15,7 +15,7 @@
             </div>
 
             <div class="col-md-2">
-                <a style="font-size:20px; padding-top:80px; background-color:burlywood;  height:200px;width:190px"class="btn btn-primary" asp-area="" asp-controller="Departamento" asp-action="Index">Departamentos</a>
+                <a style="font-size:20px; padding-top:80px; background-color:burlywood;  height:200px;width:190px" class="btn btn-primary" asp-area="" asp-controller="Departamento" asp-action="Index">Departamentos</a>
 
             </div>
 
@@ -33,22 +33,38 @@
         </div>
     </div>
 }
-else if (User.IsInRole("manager")){
-    <a style="background-color:darkgray; height:250px;width:250px" class="btn btn-primary" asp-area="" asp-controller="Departamento" asp-action="Index">Departamentos</a>
-    }
-    else{   
-<div class="slider">
-    <div class="img-responsive">
-        <ul class="bxslider">
-            <li><img src="~/images/slider/img3.jpg" alt="" /></li>
-            <li><img src="~/images/slider/img2.jpg" alt="" /></li>
-            <li><img src="~/images/slider/img1.jpg" alt="" /></li>
+else if (User.IsInRole("manager"))
+{
+    //<a style="background-color:darkgray; height:250px;width:250px" class="btn btn-primary" asp-area="" asp-controller="Departamento" asp-action="Index">Departamentos</a>
 
+    <div class="container">
+        <div class="row">
 
-        </ul>
+            <div class="col-md-3">
+                <a style="font-size:20px; padding-top:80px; background-color:lightskyblue; height:200px;width:220px" class="btn btn-primary" asp-area="" asp-controller="Tarefa" asp-action="Index">Minhas Tarefas</a>
+
+            </div>
+
+            <div class="col-md-3">
+                <a style="font-size:20px; padding-top:80px; background-color:burlywood;  height:200px;width:220px" class="btn btn-primary" asp-area="" asp-controller="Tarefa" asp-action="Create">Dar Tarefa</a>
+
+            </div>
+         </div>
     </div>
-</div>
-}
+            }
+            else{
+            <div class="slider">
+                <div class="img-responsive">
+                    <ul class="bxslider">
+                        <li><img src="~/images/slider/img3.jpg" alt="" /></li>
+                        <li><img src="~/images/slider/img2.jpg" alt="" /></li>
+                        <li><img src="~/images/slider/img1.jpg" alt="" /></li>
+
+
+                    </ul>
+                </div>
+            </div>
+            }
 
 
 

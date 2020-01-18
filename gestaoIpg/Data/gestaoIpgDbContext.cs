@@ -19,4 +19,22 @@ using gestaoIpg.Models;
         public DbSet<gestaoIpg.Models.Cargo> Cargo { get; set; }
 
         public DbSet<gestaoIpg.Models.Tarefa> Tarefa { get; set; }
+
+
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        
+        //Relação 1 -> N
+        modelBuilder.Entity<Funcionario>()
+            .HasOne(mm => mm.Cargo)
+            .WithMany(m => m.Funcionarios)
+            .HasForeignKey(mm => mm.CargoId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        base.OnModelCreating(modelBuilder);
     }
+
+
+}
+
