@@ -13,8 +13,8 @@ namespace gestaoIpg.Controllers
     {
         private readonly gestaoIpgDbContext _context;
 
-        //private const int NUMBER_OF_PRODUCTS_PER_PAGE = 3;
-        //private const int NUMBER_OF_PAGES_BEFORE_AND_AFTER = 2;
+        private const int NUMBER_OF_PRODUCTS_PER_PAGE = 3;
+        private const int NUMBER_OF_PAGES_BEFORE_AND_AFTER = 2;
 
         public FuncionarioController(gestaoIpgDbContext context)
         {
@@ -22,25 +22,68 @@ namespace gestaoIpg.Controllers
         }
 
         // GET: Funcionarios
-        /*
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1, string sortOrder = "Nome", string searchString = null, string searchOption = null)
         {
             decimal numberProducts = _context.Funcionario.Count();
+            var _contextFuncionario = _context.Funcionario.Include(f => f.Cargo).Include(f => f.Departamento);
+
+
             FuncionarioViewModel vm = new FuncionarioViewModel
             {
-                Funcionario = _context.Funcionario
-                .Skip((page - 1) * NUMBER_OF_PRODUCTS_PER_PAGE)
-                .Take(NUMBER_OF_PRODUCTS_PER_PAGE),
+                
+                Funcionarios = _contextFuncionario
+                //.Skip((page - 1) * NUMBER_OF_PRODUCTS_PER_PAGE)
+                .Take((int) numberProducts),
                 CurrentPage = page,
                 TotalPages = (int)Math.Ceiling(numberProducts / NUMBER_OF_PRODUCTS_PER_PAGE),
                 FirstPageShow = Math.Max(1, page - NUMBER_OF_PAGES_BEFORE_AND_AFTER),
             };
+
+            var searchOptionList = new List<string>();
+
+            searchOptionList.Add("Nome");
+
+            ViewBag.searchOption = new SelectList(searchOptionList);
+
+            if (!String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(searchOption))
+            {
+                vm.CurrentSearchString = searchString;
+                switch (searchOption)
+                {
+                    case "Nome":
+                        vm.Funcionarios = vm.Funcionarios.Where(p => p.Nome.Contains(searchString, StringComparison.CurrentCultureIgnoreCase));
+                        vm.CurrentSearchOption = "Nome";
+                        break;
+                }
+            }
+
+            ViewBag.NomeSortParm = sortOrder == "Nome" ? "Nome_Desc" : "Nome";
+         
+            switch (sortOrder)
+            {
+                case "Nome_Desc":
+                    vm.Funcionarios = vm.Funcionarios.OrderByDescending(p => p.Nome);
+                    vm.CurrentSortOrder = "Nome_Desc";
+                    break;
+
+                default:
+                    vm.Funcionarios = vm.Funcionarios.OrderBy(p => p.Nome); // ascending by default
+                    vm.CurrentSortOrder = "Nome";
+                    break;
+
+            }
+            vm.TotalPages = (int)Math.Ceiling((decimal)vm.Funcionarios.Count() / NUMBER_OF_PRODUCTS_PER_PAGE);
+            vm.Funcionarios = vm.Funcionarios.Skip((page - 1) * NUMBER_OF_PRODUCTS_PER_PAGE);
+            vm.Funcionarios = vm.Funcionarios.Take(NUMBER_OF_PRODUCTS_PER_PAGE);
             vm.LastPageShow = Math.Min(vm.TotalPages, page + NUMBER_OF_PAGES_BEFORE_AND_AFTER);
+            vm.FirstPage = 1;
+            vm.LastPage = vm.TotalPages;
+            //return View(await gestaoTarefasIPGDbContext.ToListAsync());
             return View(vm);
         }
-        */
+        
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        /*public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
 
             ViewData["CurrentSort"] = sortOrder;
@@ -82,7 +125,7 @@ namespace gestaoIpg.Controllers
             //return View(await FuncionarioViewModel<Funcionario>.CreateAsync(funcionario.AsNoTracking(), pageNumber ?? 1, pageSize));
             return View(gestaoIpgDbContext.ToListAsync());
 
-        }
+        }*/
 
         // GET: Funcionarios/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -94,6 +137,7 @@ namespace gestaoIpg.Controllers
 
             var funcionario = await _context.Funcionario
                 .Include(f => f.Cargo)
+                .Include(f => f.Departamento)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
@@ -107,6 +151,7 @@ namespace gestaoIpg.Controllers
         public IActionResult Create()
         {
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "Tipo");
             return View();
         }
 
@@ -115,7 +160,7 @@ namespace gestaoIpg.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Morada,Email,Telemovel, CargoId")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Morada,Email,Telemovel, CargoId, DepartamentoId")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -125,6 +170,7 @@ namespace gestaoIpg.Controllers
                 //return RedirectToAction(nameof(Index));
             }
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "Tipo", funcionario.DepartamentoId);
             return View(funcionario);
         }
 
@@ -142,6 +188,8 @@ namespace gestaoIpg.Controllers
                 return NotFound();
             }
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "Tipo", funcionario.DepartamentoId);
+
             return View(funcionario);
         }
 
@@ -179,6 +227,8 @@ namespace gestaoIpg.Controllers
                 return View("Sucesso");
             }
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "Tipo", funcionario.DepartamentoId);
+
             return View(funcionario);
         }
 

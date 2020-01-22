@@ -6,10 +6,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace gestaoIpg.Models
 {
-   public class FuncionarioViewModel <T> : List <T>
+    public class FuncionarioViewModel
     {
-       
-        public  int PageIndex { get; private set; }
+
+        public IEnumerable<Funcionario> Funcionarios { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+        public int FirstPageShow { get; set; }
+        public int LastPageShow { get; set; }
+        public int FirstPage { get; set; }
+        public int LastPage { get; set; }
+        public string CurrentSortOrder { get; set; }
+        public string CurrentSearchOption { get; set; }
+        public string CurrentSearchString { get; set; }
+
+        /*public  int PageIndex { get; private set; }
         public int TotalPages { get; private set; }
 
         public FuncionarioViewModel(List<T> items, int count, int pageIndex, int pageSize)
@@ -42,6 +53,6 @@ namespace gestaoIpg.Models
             var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
             return new FuncionarioViewModel<T>(items, count, pageIndex, pageSize);
         }
+    }*/
     }
-
-}
+ }

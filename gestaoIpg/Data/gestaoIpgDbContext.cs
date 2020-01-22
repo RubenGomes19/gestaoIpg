@@ -33,6 +33,16 @@ using gestaoIpg.Models;
             .OnDelete(DeleteBehavior.Cascade);
 
         base.OnModelCreating(modelBuilder);
+
+
+        //Relação 1 -> N
+        modelBuilder.Entity<Funcionario>()
+            .HasOne(mm => mm.Departamento)
+            .WithMany(m => m.Funcionarios)
+            .HasForeignKey(mm => mm.DepartamentoId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        base.OnModelCreating(modelBuilder);
     }
 
 

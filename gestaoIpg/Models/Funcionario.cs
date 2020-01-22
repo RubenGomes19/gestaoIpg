@@ -29,5 +29,8 @@ namespace gestaoIpg.Models
         public int CargoId { get; set; }
         public Cargo Cargo { get; set; }
 
+        public int DepartamentoId { get; set; }
+        public Departamento Departamento { get; set; }
+
     }
 }

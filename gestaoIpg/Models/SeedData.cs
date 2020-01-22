@@ -65,18 +65,32 @@ namespace gestaoIpg.Models
                 new Funcionario { Nome = "Jorge Damásio", Morada = " Rua da Alegria, Guarda",
                     Email = "jorgedamásio@gmail.com",
                     Telemovel = 919191914,
-                    CargoId =1
+                    CargoId =1,
+                    DepartamentoId=1
+                   
                   
                 },
                 new Funcionario { Nome = "Daniela Matos", Morada = " Rua da Alegria, Guarda",
                     Email = "danielamatos@gmail.com",
                     Telemovel = 919191915,
-                    CargoId = 1
+                    CargoId = 2,
+                    DepartamentoId = 2
                 },
                 new Funcionario { Nome = "Olinda Simões", Morada = " Rua das Flores, Guarda",
                     Email = "olindasimoes@gmail.com",
                     Telemovel = 919191894,
-                    CargoId = 1
+                    CargoId = 3,
+                    DepartamentoId = 3
+                },
+
+                new Funcionario
+                {
+                    Nome = "Zeze Limao",
+                    Morada = " Rua das Flores, Guarda",
+                    Email = "zeze@gmail.com",
+                    Telemovel = 961386258,
+                    CargoId = 4,
+                    DepartamentoId = 4
                 }
 
             );

@@ -15,5 +15,7 @@ namespace gestaoIpg.Models
         [Display(Name = "Tipo")]
         public string Tipo { get; set; }
 
+        public ICollection<Funcionario> Funcionarios { get; set; }
+
     }
 }

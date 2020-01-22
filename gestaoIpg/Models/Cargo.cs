@@ -10,8 +10,9 @@ namespace gestaoIpg.Models
     {
         public int CargoId { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "Por favor, insira um nome")]
+        [StringLength(248)]
+        [Display(Name = "NomeCargo:")]
         public string NomeCargo { get; set; }
 
         public ICollection<Funcionario> Funcionarios { get; set; }
