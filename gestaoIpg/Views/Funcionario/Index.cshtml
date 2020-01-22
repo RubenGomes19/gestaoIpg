@@ -9,33 +9,24 @@
 
 
     <div class="container" style="color:black">
-        <h2>Lista Funcionários</h2>
+        <h2>Lista dos Funcionários</h2>
 
 
         <p>
-            <a asp-action="Create" class="btn btn-success">Novo</a>
+            <a asp-action="Create" class="btn btn-success">Inserir novo Funcionário</a>
         </p>
-        @*<form asp-action="Index" method="get">
-            <div class="form-actions no-color">
-                <p style="color:black">
-                    Procura por nome:&nbsp;  <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-                    &nbsp;
-                    <input type="submit" value="Procurar" class="btn btn-outline-info" /> |
-                    <a asp-action="Index" class="btn btn-outline-info">Voltar a lista inicial</a>
-                </p>
-            </div>
-        </form>*@
+    
 
         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-                @Html.DropDownList("searchOption", null, "Escolher:", new { @style = "border-radius: .35rem" })
-                &nbsp;
-                <!--<input type="text" class="form-control bg-light border-0 small" placeholder="Procure por..." aria-label="Search" aria-describedby="basic-addon2">-->
-                @Html.TextBox("searchString", null, null, new { @class = "form-control bg-light border-0 small", @style = "border-readius: .35rem", @placeholder = "Procure por ..." })
+
+
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
+                    @Html.TextBox("searchString", null, null, new { @class = "form-control bg-light border-0 small", @style = "border-readius: .35rem", @placeholder = "Procurar por nome" })
+                    <button type="submit" class="btn btn-outline-info">
+                        <i style="color:black" fas fa-sm">Pesquisar</i>
+                    </button>&nbsp;
+                    <a asp-action="Index" class="btn btn-outline-info">Voltar a lista inicial</a>
                 </div>
             </div>
         </form>
@@ -47,18 +38,7 @@
                         @*Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Nome)*@
                         <h5>Nome</h5>
                     </th>
-                    <th>
-                        @*Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Morada)*@
-                        <h5>Morada</h5>
-                    </th>
-                    <th>
-                        @*Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Email)*@
-                        <h5>Email</h5>
-                    </th>
-                    <th>
-                        @*Html.DisplayNameFor(model => model.Funcionario.FirstOrDefault().Telemovel)*@
-                        <h5>Telemóvel</h5>
-                    </th>
+                   
                     <th>
                         <h5>Cargo</h5>
                     </th>
@@ -69,17 +49,16 @@
                         @*<a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" style=" color:black" class="btn btn-link">Ordenar por ordem alfabética</a>*@
                         @if (Model.CurrentSortOrder == "Nome")
                         {
-                            <i class="fas fa-caret-up"></i>
+                            <i class="btn btn-dark"></i>
                         }
                         else if (Model.CurrentSortOrder == "Nome_Desc")
                         {
-                            <i class="fas fa-caret-down"></i>
+                            <i class="btn btn-dark"></i>
                         }
-                        @Html.ActionLink("Nome:", "Index", new
+                        @Html.ActionLink("Ordenar por Nome", "Index", new
                         {
                             sortOrder = ViewBag.NomeSortParm,
                             page = Model.CurrentPage,
-                            searchOption = Model.CurrentSearchOption,
                             searchString = Model.CurrentSearchString
                         }, new { @style = "color: black" })
                     </th>
@@ -92,15 +71,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Nome)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Morada)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Telemovel)
-                        </td>
+                        
                         <td>
                             @Html.DisplayFor(modelItem => item.Cargo.NomeCargo)
                         </td>
@@ -108,94 +79,29 @@
                             @Html.DisplayFor(modelItem => item.Departamento.Tipo)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.FuncionarioId" class="btn btn-warning">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.FuncionarioId" class="btn btn-info">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.FuncionarioId" class="btn btn-danger">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.FuncionarioId" class="btn btn-warning">Editar</a> |
+                            <a asp-action="Details" asp-route-id="@item.FuncionarioId" class="btn btn-info">Detalhes</a> |
+                            <a asp-action="Delete" asp-route-id="@item.FuncionarioId" class="btn btn-danger">Eliminar</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
 
-        <p>First = @Model.FirstPageShow</p>
-        <p>Last = @Model.LastPageShow</p>
-
-        @if (Model.FirstPage != Model.FirstPageShow)
-        {
-            @Html.ActionLink("" + Model.FirstPage, "Index", new
-            {
-                sortOrder = Model.CurrentSortOrder,
-                page = Model.FirstPage,
-                searchOption = Model.CurrentSearchOption,
-                searchString = Model.CurrentSearchString
-            }, new { @class = "btn btn-secondary" })
-        }
-
         @for (int i = Model.FirstPageShow; i <= Model.LastPageShow; i++)
         {
             @if (i == Model.CurrentPage)
             {
-                @Html.ActionLink("" + i, "#", new
-                {
-                    sortOrder = Model.CurrentSortOrder,
-                    page = i,
-                    searchOption = Model.CurrentSearchOption,
-                    searchString = Model.CurrentSearchString
-                }, new { @class = "btn btn-dark" })
-                <text>&nbsp;</text>
+                <!--<a href="#">@i</a>-->
+                <!--<a asp-action="Index" asp-route-page="@i" class="btn btn-outline-info">@i</a>-->
+                <a href="#" class="btn btn-info">@i</a>
             }
             else
             {
-                @Html.ActionLink("" + i, "Index", new
-                {
-                    sortOrder = Model.CurrentSortOrder,
-                    page = i,
-                    searchOption = Model.CurrentSearchOption,
-                    searchString = Model.CurrentSearchString
-                }, new { @class = "btn btn-secondary" })
-                <text>&nbsp;</text>
+                <a asp-action="Index" asp-route-page="@i" class="btn btn-dark">@i</a>
+
             }
         }
-        @if (Model.LastPage != Model.LastPageShow)
-        {
-            @Html.ActionLink("" + Model.LastPage, "Index", new
-            {
-                sortOrder = Model.CurrentSortOrder,
-                page = Model.LastPage,
-                searchOption = Model.CurrentSearchOption,
-                searchString = Model.CurrentSearchString
-            }, new { @class = "btn btn-secondary" })
-        }
+    
 
-            @*{
-                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-            }
-
-            <a asp-action="Index"
-               asp-route-sortOrder="@ViewData["CurrentSort"]"
-               asp-route-pageNumber="@(Model.PageIndex - 1)"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
-               class="btn btn-default @prevDisabled">
-                Anterior
-            </a>
-            &nbsp;
-            @for (int i = Model.PageIndex; i <= Model.TotalPages; i++)
-            {
-                @if (i == Model.PageIndex)
-                {
-
-                    <label href="#">@i</label>
-                }
-            }
-            &nbsp;
-            &nbsp;
-            <a asp-action="Index"
-               asp-route-sortOrder="@ViewData["CurrentSort"]"
-               asp-route-pageNumber="@(Model.PageIndex + 1)"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
-               class="btn btn-default @nextDisabled">
-                Seguinte
-            </a>*@
-
-</div>
+    </div>

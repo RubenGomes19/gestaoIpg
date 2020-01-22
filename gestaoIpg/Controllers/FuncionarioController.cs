@@ -22,7 +22,7 @@ namespace gestaoIpg.Controllers
         }
 
         // GET: Funcionarios
-        public IActionResult Index(int page = 1, string sortOrder = "Nome", string searchString = null, string searchOption = null)
+        public IActionResult Index(int page = 1, string sortOrder = null, string searchString = null)
         {
             decimal numberProducts = _context.Funcionario.Count();
             var _contextFuncionario = _context.Funcionario.Include(f => f.Cargo).Include(f => f.Departamento);
@@ -39,28 +39,19 @@ namespace gestaoIpg.Controllers
                 FirstPageShow = Math.Max(1, page - NUMBER_OF_PAGES_BEFORE_AND_AFTER),
             };
 
-            var searchOptionList = new List<string>();
+           
 
-            searchOptionList.Add("Nome");
-
-            ViewBag.searchOption = new SelectList(searchOptionList);
-
-            if (!String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(searchOption))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 vm.CurrentSearchString = searchString;
-                switch (searchOption)
-                {
-                    case "Nome":
-                        vm.Funcionarios = vm.Funcionarios.Where(p => p.Nome.Contains(searchString, StringComparison.CurrentCultureIgnoreCase));
-                        vm.CurrentSearchOption = "Nome";
-                        break;
-                }
+                vm.Funcionarios = vm.Funcionarios.Where(p => p.Nome.Contains(searchString, StringComparison.CurrentCultureIgnoreCase));
+
             }
 
-            ViewBag.NomeSortParm = sortOrder == "Nome" ? "Nome_Desc" : "Nome";
-         
             switch (sortOrder)
             {
+                
+
                 case "Nome_Desc":
                     vm.Funcionarios = vm.Funcionarios.OrderByDescending(p => p.Nome);
                     vm.CurrentSortOrder = "Nome_Desc";
@@ -70,8 +61,10 @@ namespace gestaoIpg.Controllers
                     vm.Funcionarios = vm.Funcionarios.OrderBy(p => p.Nome); // ascending by default
                     vm.CurrentSortOrder = "Nome";
                     break;
-
             }
+            ViewBag.NomeSortParm = sortOrder == "Nome" ? "Nome_Desc" : "Nome";
+         
+            
             vm.TotalPages = (int)Math.Ceiling((decimal)vm.Funcionarios.Count() / NUMBER_OF_PRODUCTS_PER_PAGE);
             vm.Funcionarios = vm.Funcionarios.Skip((page - 1) * NUMBER_OF_PRODUCTS_PER_PAGE);
             vm.Funcionarios = vm.Funcionarios.Take(NUMBER_OF_PRODUCTS_PER_PAGE);
@@ -82,50 +75,6 @@ namespace gestaoIpg.Controllers
             return View(vm);
         }
         
-
-        /*public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
-        {
-
-            ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-
-            if (searchString != null)
-            {
-                pageNumber = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewData["CurrentFilter"] = searchString;
-
-            var funcionario = from s in _context.Funcionario
-                        select s;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                funcionario = funcionario.Where(s => s.Nome.Contains(searchString));
-
-            }
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    funcionario = funcionario.OrderByDescending(s => s.Nome);
-                    break;
-                default:
-                    funcionario = funcionario.OrderBy(s => s.Nome);
-                    break;
-
-            }
-
-            //int pageSize = 3;
-            var gestaoIpgDbContext = _context.Funcionario.Include(f => f.Cargo);
-            //return View(await FuncionarioViewModel<Funcionario>.CreateAsync(funcionario.AsNoTracking(), pageNumber ?? 1, pageSize));
-            return View(gestaoIpgDbContext.ToListAsync());
-
-        }*/
 
         // GET: Funcionarios/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -198,7 +147,7 @@ namespace gestaoIpg.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Morada,Email,Telemovel,CargoId")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Morada,Email,Telemovel,CargoId,DepartamentoId")] Funcionario funcionario)
         {
             if (id != funcionario.FuncionarioId)
             {
@@ -207,7 +156,7 @@ namespace gestaoIpg.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                /*try
                 {
                     _context.Update(funcionario);
                     await _context.SaveChangesAsync();
@@ -229,8 +178,50 @@ namespace gestaoIpg.Controllers
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
             ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "Tipo", funcionario.DepartamentoId);
 
-            return View(funcionario);
+            return View(funcionario);*/
+                try
+                {
+                    // se isto for null é porque não encontrou nenhum registo na tabela Escola com o mesmo Nome
+                    if (_context.Cargo.FirstOrDefault(m => m.NomeCargo == funcionario.Nome) == null)
+                    {
+                        _context.Update(funcionario);
+                        
+                        await _context.SaveChangesAsync();
+                    }
+                    else if (_context.Departamento.FirstOrDefault(m => m.Tipo == funcionario.Nome) == null)
+                    {
+                        _context.Update(funcionario);
+                        
+                        await _context.SaveChangesAsync();
+                    }
+
+                    else
+                    {
+                        ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
+                        ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "Tipo", funcionario.DepartamentoId);
+                        ModelState.AddModelError("Nome", "Não é possível adicionar nomes repetidos.");
+                        return View(funcionario);
+                    }
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FuncionarioExists(funcionario.FuncionarioId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return View("Sucesso");
+            }
+            else
+            {
+                return View("Erro");
+            }
         }
+
 
         // GET: Funcionarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
