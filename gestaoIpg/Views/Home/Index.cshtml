@@ -41,15 +41,22 @@ else if (User.IsInRole("manager"))
         <div class="row">
 
             <div class="col-md-3">
-                <a style="font-size:20px; padding-top:80px; background-color:lightskyblue; height:200px;width:220px" class="btn btn-primary" asp-area="" asp-controller="Tarefa" asp-action="Index">Minhas Tarefas</a>
+                <a style="font-size:20px; padding-top:80px; background-color:darkseagreen;  height:200px;width:220px" class="btn btn-primary" asp-area="" asp-controller="Tarefa" asp-action="Create">Dar Tarefa</a>
 
             </div>
+
 
             <div class="col-md-3">
-                <a style="font-size:20px; padding-top:80px; background-color:burlywood;  height:200px;width:220px" class="btn btn-primary" asp-area="" asp-controller="Tarefa" asp-action="Create">Dar Tarefa</a>
+                <a style="font-size:20px; padding-top:80px; background-color:lightskyblue; height:200px;width:220px" class="btn btn-primary" asp-area="" asp-controller="Tarefa" asp-action="Index">Lista Tarefas</a>
 
             </div>
-         </div>
+
+
+            <div class="col-md-3">
+                <a style="font-size:20px; padding-top:80px; background-color:burlywood; height:200px;width:220px" class="btn btn-primary" asp-area="" asp-controller="Funcionario" asp-action="Index">Lista Funcionários</a>
+
+            </div>
+        </div>
     </div>
             }
             else{

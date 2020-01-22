@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gestaoIpg.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace gestaoIpg.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class DepartamentoController : Controller
     {
         private readonly gestaoIpgDbContext _context;

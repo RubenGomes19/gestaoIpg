@@ -90,12 +90,13 @@ namespace gestaoIpg.Controllers
             return View(tarefa);
         }
 
-        // GET: Tarefa/Create
         
+        // GET: Tarefa/Create
+
         public IActionResult Create()
         {
 
-            ViewData["TarefaId"] = new SelectList(_context.Tarefa, "TarefaId", "DescricaoTarefa");
+            ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "Nome");
             return View();
         }
 
@@ -117,6 +118,7 @@ namespace gestaoIpg.Controllers
             return View(tarefa);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Tarefa/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -140,7 +142,7 @@ namespace gestaoIpg.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TarefaId,DescricaoTarefa")] Tarefa tarefa)
+        public async Task<IActionResult> Edit(int id, [Bind("TarefaId,DescricaoTarefa,FuncionarioId")] Tarefa tarefa)
         {
             if (id != tarefa.TarefaId)
             {
@@ -174,6 +176,7 @@ namespace gestaoIpg.Controllers
             return View(tarefa);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Tarefa/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

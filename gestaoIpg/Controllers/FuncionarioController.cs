@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gestaoIpg.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace gestaoIpg.Controllers
 {
@@ -96,6 +97,7 @@ namespace gestaoIpg.Controllers
             return View(funcionario);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Funcionarios/Create
         public IActionResult Create()
         {
@@ -123,6 +125,7 @@ namespace gestaoIpg.Controllers
             return View(funcionario);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Funcionarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -222,7 +225,7 @@ namespace gestaoIpg.Controllers
             }
         }
 
-
+        [Authorize(Roles = "admin")]
         // GET: Funcionarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -233,6 +236,7 @@ namespace gestaoIpg.Controllers
 
             var funcionario = await _context.Funcionario
                 .Include(f => f.Cargo)
+                .Include(f => f.Departamento)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {

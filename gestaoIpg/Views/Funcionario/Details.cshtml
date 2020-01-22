@@ -7,11 +7,10 @@
 
 
     <div class="container" style="color:black">
-        <h2>Details</h2>
-
+        <h2>Detalhes Funcionário</h2>
 
         <div>
-            <h4>Funcionario</h4>
+            
             <hr />
             <dl class="dl-horizontal">
                 <dt>
@@ -38,10 +37,22 @@
                 <dd>
                     @Html.DisplayFor(model => model.Telemovel)
                 </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Cargo)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Cargo.NomeCargo)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Departamento)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Departamento.Tipo)
+                </dd>
             </dl>
         </div>
         <div>
-            <a asp-action="Edit" asp-route-id="@Model.FuncionarioId" class="btn btn-warning">Edit</a> |
-            <a asp-action="Index" class="btn btn-primary">Back to List</a>
+            <a asp-action="Edit" asp-route-id="@Model.FuncionarioId" class="btn btn-warning">Editar</a> |
+            <a asp-action="Index">Voltar para a lista</a>
         </div>
     </div>
