@@ -13,7 +13,11 @@ namespace gestaoIpg.Models
 
         [Required]
         [StringLength(500)]
+        [Display(Name = "Descricao")]
         public string DescricaoTarefa { get; set; }
+
+        public int FuncionarioId { get; set; }
+        public Funcionario Funcionario { get; set; }
 
 
     }

@@ -1,29 +1,40 @@
-﻿@model IEnumerable<gestaoIpg.Models.Tarefa>
+﻿@*model IEnumerable<gestaoIpg.Models.Tarefa>*@
+
+@model TarefaViewModel
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
     <div class="container">
         <h2>Lista Tarefas</h2>
         <p>
-            <a  class="btn btn-success" asp-action="Create">Nova Tarefa</a>
+            <a class="btn btn-success" asp-action="Create">Nova Tarefa</a>
         </p>
+
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.DescricaoTarefa)
+                        @*Html.DisplayNameFor(model => model.DescricaoTarefa)*@
+                        <h5>Descrição Tarefa</h5>
                     </th>
-                    <th></th>
+                    <th>
+                        <h5>Responsavel</h5>
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Tarefas)
                 {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.DescricaoTarefa)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Funcionario.Nome)
                         </td>
                         <td>
                             <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.TarefaId">Editar</a> |
@@ -34,4 +45,55 @@
                 }
             </tbody>
         </table>
+
+        <p>First = @Model.FirstPageShow</p>
+        <p>Last = @Model.LastPageShow</p>
+
+        @if (Model.FirstPage != Model.FirstPageShow)
+        {
+            @Html.ActionLink("" + Model.FirstPage, "Index", new
+            {
+                sortOrder = Model.CurrentSortOrder,
+                page = Model.FirstPage,
+                searchOption = Model.CurrentSearchOption,
+                searchString = Model.CurrentSearchString
+            }, new { @class = "btn btn-secondary" })
+        }
+
+        @for (int i = Model.FirstPageShow; i <= Model.LastPageShow; i++)
+        {
+            @if (i == Model.CurrentPage)
+            {
+                @Html.ActionLink("" + i, "#", new
+                {
+                    sortOrder = Model.CurrentSortOrder,
+                    page = i,
+                    searchOption = Model.CurrentSearchOption,
+                    searchString = Model.CurrentSearchString
+                }, new { @class = "btn btn-dark" })
+                <text>&nbsp;</text>
+            }
+            else
+            {
+                @Html.ActionLink("" + i, "Index", new
+                {
+                    sortOrder = Model.CurrentSortOrder,
+                    page = i,
+                    searchOption = Model.CurrentSearchOption,
+                    searchString = Model.CurrentSearchString
+                }, new { @class = "btn btn-secondary" })
+                <text>&nbsp;</text>
+            }
+        }
+        @if (Model.LastPage != Model.LastPageShow)
+        {
+            @Html.ActionLink("" + Model.LastPage, "Index", new
+            {
+                sortOrder = Model.CurrentSortOrder,
+                page = Model.LastPage,
+                searchOption = Model.CurrentSearchOption,
+                searchString = Model.CurrentSearchString
+            }, new { @class = "btn btn-secondary" })
+        }
+
     </div>

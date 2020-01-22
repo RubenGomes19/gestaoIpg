@@ -32,5 +32,7 @@ namespace gestaoIpg.Models
         public int DepartamentoId { get; set; }
         public Departamento Departamento { get; set; }
 
+        public ICollection<Tarefa> Tarefas { get; set; }
+
     }
 }

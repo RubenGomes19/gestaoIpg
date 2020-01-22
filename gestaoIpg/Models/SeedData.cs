@@ -103,10 +103,11 @@ namespace gestaoIpg.Models
             {
                 if (db.Tarefa.Any()) return;
                 db.Tarefa.AddRange(
-                    new Tarefa { DescricaoTarefa = "Cortar relva" },
-                    new Tarefa { DescricaoTarefa = "Vigiar teste Programação" },
-                    new Tarefa { DescricaoTarefa = "Limpar Escadas" }
-                    
+                    new Tarefa { DescricaoTarefa = "Cortar relva" , FuncionarioId = 1},
+                    new Tarefa { DescricaoTarefa = "Vigiar teste Programação", FuncionarioId = 2 },
+                    new Tarefa { DescricaoTarefa = "Limpar Escadas", FuncionarioId = 3},
+                    new Tarefa { DescricaoTarefa = "Limpar Corredor", FuncionarioId = 4}
+
                 );
                 db.SaveChanges();
 
