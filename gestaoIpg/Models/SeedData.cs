@@ -25,15 +25,10 @@ namespace gestaoIpg.Models
         {
             if (db.Departamento.Any()) return;
             db.Departamento.AddRange(
-                new Departamento { Tipo = "Departamento informática" },
-                new Departamento { Tipo = "Departamento contabilidade" },
-                new Departamento { Tipo = "Departamento gestao" },
-                new Departamento { Tipo = "Departamento informática1" },
-                new Departamento { Tipo = "Departamento contabilidade1" },
-                new Departamento { Tipo = "Departamento gestao1" },
-                new Departamento { Tipo = "Departamento informática2" },
-                new Departamento { Tipo = "Departamento contabilidade2" },
-                new Departamento { Tipo = "Departamento gestao2" }
+                new Departamento { Tipo = "Departamento Académico" },
+                new Departamento { Tipo = "Departamento Administrativo" },
+                new Departamento { Tipo = "Departamento Pedagógico" },
+                new Departamento { Tipo = "Departamento Recursos Humanos" }
 
             );
             db.SaveChanges();
@@ -43,17 +38,11 @@ namespace gestaoIpg.Models
         {
             if (db.Cargo.Any()) return;
             db.Cargo.AddRange(
-                new Cargo { NomeCargo = "Presidente" },
-                new Cargo { NomeCargo = "Vice-Presidente" },
-                new Cargo { NomeCargo = "Gerente" },
-                new Cargo { NomeCargo = "Analisador" },
-                new Cargo { NomeCargo = "Tecnico" },
-                new Cargo { NomeCargo = "Advogado" },
-                new Cargo { NomeCargo = "Contabilista" },
-                new Cargo { NomeCargo = "Limpeza" },
-                new Cargo { NomeCargo = "Financeira" },
-                new Cargo { NomeCargo = "Trabalhador1" },
-                new Cargo { NomeCargo = "Trabalhador2" }
+                new Cargo { NomeCargo = "Diretor ESTG" },
+                new Cargo { NomeCargo = "Secretária ESTG" },
+                new Cargo { NomeCargo = "Professor" },
+                new Cargo { NomeCargo = "Gestora RH" }
+                
             );
             db.SaveChanges();
         }
@@ -62,34 +51,34 @@ namespace gestaoIpg.Models
         {
             if (db.Funcionario.Any()) return;
             db.Funcionario.AddRange(
-                new Funcionario { Nome = "Jorge Damásio", Morada = " Rua da Alegria, Guarda",
-                    Email = "jorgedamásio@gmail.com",
+                new Funcionario { Nome = "António Martins", Morada = " Rua da Alegria, Guarda",
+                    Email = "antonio@ipg.com",
                     Telemovel = 919191914,
-                    CargoId =1,
-                    DepartamentoId=1
+                    CargoId =4,
+                    DepartamentoId=2
                    
                   
                 },
-                new Funcionario { Nome = "Daniela Matos", Morada = " Rua da Alegria, Guarda",
-                    Email = "danielamatos@gmail.com",
+                new Funcionario { Nome = "Daniela Matos", Morada = " Rua da Azeitona, Guarda",
+                    Email = "danielamatos@ipg.com",
                     Telemovel = 919191915,
-                    CargoId = 2,
+                    CargoId = 3,
                     DepartamentoId = 2
                 },
-                new Funcionario { Nome = "Olinda Simões", Morada = " Rua das Flores, Guarda",
-                    Email = "olindasimoes@gmail.com",
+                new Funcionario { Nome = "José Fonseca", Morada = " Praça do Comércio, Guarda",
+                    Email = "jf@ipg.pt",
                     Telemovel = 919191894,
-                    CargoId = 3,
+                    CargoId = 2,
                     DepartamentoId = 3
                 },
 
                 new Funcionario
                 {
-                    Nome = "Zeze Limao",
+                    Nome = "Maria da Conceição",
                     Morada = " Rua das Flores, Guarda",
-                    Email = "zeze@gmail.com",
+                    Email = "mc@ipg.pt",
                     Telemovel = 961386258,
-                    CargoId = 4,
+                    CargoId = 1,
                     DepartamentoId = 4
                 }
 
@@ -103,10 +92,10 @@ namespace gestaoIpg.Models
             {
                 if (db.Tarefa.Any()) return;
                 db.Tarefa.AddRange(
-                    new Tarefa { DescricaoTarefa = "Cortar relva" , FuncionarioId = 1},
+                    new Tarefa { DescricaoTarefa = "Assinar Calendário de Avaliações" , FuncionarioId = 4},
                     new Tarefa { DescricaoTarefa = "Vigiar teste Programação", FuncionarioId = 2 },
-                    new Tarefa { DescricaoTarefa = "Limpar Escadas", FuncionarioId = 3},
-                    new Tarefa { DescricaoTarefa = "Limpar Corredor", FuncionarioId = 4}
+                    new Tarefa { DescricaoTarefa = "Fazer Calendário de ferias 2020", FuncionarioId = 3},
+                    new Tarefa { DescricaoTarefa = "Contratar Professor de Artes", FuncionarioId = 1}
 
                 );
                 db.SaveChanges();
@@ -118,10 +107,10 @@ namespace gestaoIpg.Models
             const string ADMIN_USERNAME = "admin@ipg.pt";
             const string ADMIN_PASSWORD = "Secret123$";
 
-            const string MANAGER_USERNAME = "jose@ipg.pt";
+            const string MANAGER_USERNAME = "antonio@ipg.pt";
             const string MANAGER_PASSWORD = "Secret123$";
 
-            const string FUNCIONARIO_USERNAME = "andre@ipg.pt";
+            const string FUNCIONARIO_USERNAME = "jose@ipg.pt";
             const string FUNCIONARIO_PASSWORD = "Secret123$";
 
             IdentityUser user = await userManager.FindByNameAsync(ADMIN_USERNAME);
